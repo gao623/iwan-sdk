@@ -1,0 +1,55 @@
+{
+  "name": "@wandevs/iwan-sdk",
+  "version": "1.0.0",
+  "description": "TypeScript SDK for iWan RPC (Wanchain) - CommonJS / ESM / Browser / TypeScript",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "browser": {
+    "ws": false,
+    "crypto": false
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "docs": "typedoc --out docs src/index.ts --excludePrivate --excludeProtected",
+    "prepublishOnly": "npm run build",
+    "test": "vitest run",
+    "dev": "tsdown --watch"
+  },
+  "dependencies": {
+    "ws": "^8.19.0",
+    "eventemitter3": "^5.0.1"
+  },
+  "devDependencies": {
+    "tsdown": "^0.21.4",
+    "typedoc": "^0.28.17",
+    "typescript": "^5.9.3",
+    "unplugin-unused": "^0.5.7",
+    "@types/node": "^25.5.0",
+    "vitest": "^4.1.0"
+  },
+  "keywords": [
+    "wanchain",
+    "iwan",
+    "rpc",
+    "sdk",
+    "typescript",
+    "browser"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourname/iwan-sdk-ts"
+  }
+}
