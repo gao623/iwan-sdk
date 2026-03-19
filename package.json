@@ -14,8 +14,8 @@
     }
   },
   "browser": {
-    "ws": false,
-    "crypto": false
+    "crypto": false,
+    "ws": false
   },
   "files": [
     "dist"
@@ -25,18 +25,25 @@
     "docs": "typedoc --out docs src/index.ts --excludePrivate --excludeProtected",
     "prepublishOnly": "npm run build",
     "test": "vitest run",
-    "dev": "tsdown --watch"
+    "dev": "tsdown --watch",
+    "build:docs": "typedoc",
+    "build:docs:watchs": "typedoc --watch"
   },
   "dependencies": {
-    "ws": "^8.19.0",
-    "eventemitter3": "^5.0.1"
+    "eventemitter3": "^5.0.1",
+    "ws": "^8.19.0"
   },
   "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@types/ws": "^8.18.1",
+    "@vitest/browser-playwright": "^4.1.0",
+    "playwright": "^1.58.2",
     "tsdown": "^0.21.4",
+    "tsx": "^4.21.0",
     "typedoc": "^0.28.17",
+    "typedoc-plugin-markdown": "^4.11.0",
     "typescript": "^5.9.3",
     "unplugin-unused": "^0.5.7",
-    "@types/node": "^25.5.0",
     "vitest": "^4.1.0"
   },
   "keywords": [
@@ -50,6 +57,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourname/iwan-sdk-ts"
+    "url": "https://github.com/gao623/iwan-sdk"
   }
 }

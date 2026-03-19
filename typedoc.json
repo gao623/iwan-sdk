@@ -1,0 +1,31 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["./src/index.ts"],
+  "out": "./docs/api",
+  "tsconfig": "./tsconfig.json",
+  "exclude": ["**/*.test.ts", "**/*.spec.ts", "**/node_modules/**", "**/dist/**"],
+  "excludeExternals": true,
+  "excludeInternal": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeNotDocumented": false,
+  "readme": "none",
+  "name": "iwan-sdk",
+  "categoryOrder": ["Constructor", "Methods", "Interfaces", "Types"],
+  "plugin": ["typedoc-plugin-markdown"],
+  "hideGenerator": true,
+  "searchInComments": true,
+  "cleanOutputDir": true,
+  "entryFileName": "index.md",
+  "githubPages": false,
+  "gitRevision": "main",
+  "navigation": {
+    "includeCategories": true,
+    "includeGroups": true
+  },
+  "propertiesFormat": "table",
+  "typeDeclarationFormat": "table",
+  "parametersFormat": "table",
+  "enumMembersFormat": "table",
+  "classPropertiesFormat": "table"
+}
