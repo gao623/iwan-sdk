@@ -26,7 +26,7 @@ const DEFAULT_CONFIG = {
   pingTime: 30000,
   maxTries: 3,
   reconnTime: 2000,
-  wsOptions: { handshakeTimeout: 12000, rejectUnauthorized: false },
+  wsOptions: { handshakeTimeout: 12000, rejectUnauthorized: true },
 } as const;
 
 // ====================== TYPES ======================
