@@ -70,6 +70,7 @@ interface PendingRequest {
   resolve: (value: any) => void;
   reject: (reason?: any) => void;
   time: number;
+  timerId: ReturnType<typeof setTimeout>;
 }
 
 // ====================== CUSTOM ERROR ======================
@@ -130,7 +131,8 @@ export default class IwanClient extends EventEmitter {
 
   private index = 0;
   private pending = new Map<number, PendingRequest>();
-  private heartbeatTimer: NodeJS.Timeout | null = null;
+  private heartbeatTimer: ReturnType<typeof setInterval> | null = null;
+  private reconnTimer: ReturnType<typeof setTimeout> | null = null;
   private tries = DEFAULT_CONFIG.maxTries;
   private lockReconnect = false;
   private manuallyClosed = false;
@@ -188,12 +190,17 @@ export default class IwanClient extends EventEmitter {
 
     const options = this.isBrowser ? undefined : DEFAULT_CONFIG.wsOptions;
     this.ws = new WSConstructor(this.wsUrl, options);
+    if (this.manuallyClosed) {
+      await this.closeWebsocket();
+    }
 
     this.ws.onopen = () => {
       this.manuallyClosed = false;
       this.ws.isAlive = true;
       this.emit('open');
       this._resolveReadyPromise();
+
+      this.startHeartbeat();
     };
     this.ws.onmessage = (event: any) => this.handleMessage(event.data ?? event);
     this.ws.onerror = (err: any) => {
@@ -216,8 +223,29 @@ export default class IwanClient extends EventEmitter {
     if (!this.isBrowser && this.ws.on) {
       this.ws.on('pong', () => { this.ws.isAlive = true; });
     }
+  }
 
-    this.startHeartbeat();
+  private async closeWebsocket() {
+    if (this.ws) {
+      await new Promise<void>(resolve => {
+        const onClose = () => resolve();
+        // Compatible with Node’s ws library and browser native WebSocket
+        if (typeof this.ws.once === 'function') {
+          this.ws.once('close', onClose);
+        } else {
+          this.ws.addEventListener('close', onClose, { once: true });
+        }
+        this.ws.close(1000, 'Client manual close');
+      });
+      this.ws = null;
+    }
+    // if (this.ws) {
+    //   await new Promise<void>(resolve => {
+    //     this.ws.once('close', () => resolve());
+    //     this.ws.close(1000, 'Client manual close');
+    //   });
+    //   this.ws = null;
+    // }
   }
 
   // ====================== Unified processing of ready Promise (revised core） ======================
@@ -235,7 +263,116 @@ export default class IwanClient extends EventEmitter {
     }
   }
 
-  // ====================== Added: Wait for connection ready ======================
+  // ====================== Clean up old requests ======================
+  private clearPending(reason: string) {
+    const err = new IWanError(reason);
+    this.pending.forEach((p) => {
+      clearTimeout(p.timerId);
+      p.reject(err)
+    });
+    this.pending.clear();
+  }
+
+  private clearReconnTimer() {
+    if (this.reconnTimer) {
+      clearTimeout(this.reconnTimer);
+      this.reconnTimer = null;
+    }
+  }
+
+  private handleMessage(data: any) {
+    let msg: RPCResponse;
+    try {
+      const text = typeof data === 'string' ? data : data.toString();
+      msg = JSON.parse(text);
+    } catch {
+      return;
+    }
+
+    const pending = this.pending.get(msg.id);
+    if (pending) {
+      clearTimeout(pending.timerId);
+      this.pending.delete(msg.id);
+      msg.error ? pending.reject(msg.error) : pending.resolve(msg.result);
+    }
+  }
+
+  private startHeartbeat() {
+    if (!this.isOpen() && this.manuallyClosed) return;
+
+    this.stopHeartbeat();
+
+    this.heartbeatTimer = setInterval(() => {
+      if (!this.isOpen() || this.manuallyClosed || this.isBrowser) return;
+
+      if (!this.ws.isAlive) {
+        this.tries--;
+        if (this.tries < 0) this.reconnect();
+      } else {
+        this.ws.isAlive = false;
+        this.ws.ping();
+      }
+    }, DEFAULT_CONFIG.pingTime);
+  }
+
+  private stopHeartbeat() {
+    if (this.heartbeatTimer) {
+      clearInterval(this.heartbeatTimer);
+      this.heartbeatTimer = null;
+    }
+  }
+
+  private reconnect() {
+    if (this.manuallyClosed || this.lockReconnect) return;
+    this.lockReconnect = true;
+
+    this.clearReconnTimer();
+
+    this.reconnTimer = setTimeout(() => {
+      this.tries = DEFAULT_CONFIG.maxTries;
+      this.createWebSocket().catch(e => this.emit('error', e));
+      this.lockReconnect = false;
+      this.emit('reconnect');
+      this.reconnTimer = null;
+    }, DEFAULT_CONFIG.reconnTime);
+  }
+
+  private isOpen(): boolean {
+    return this.ws?.readyState === WebSocket.OPEN;
+  }
+
+  private async _request<T>(method: string, params: any = {}): Promise<T> {
+    await this.ready();
+
+    if (this.manuallyClosed || !this.isOpen()) {
+      throw new IWanError('WebSocket manually closed or not connected');
+    }
+
+    const payload: RPCMessage = {
+      jsonrpc: '2.0',
+      method,
+      params: { ...params, clientType: this.option.clientType, clientVersion: this.option.clientVersion },
+      id: ++this.index,
+    };
+
+    const signed = await signPayload(payload, this.secretKey);
+
+    return new Promise((resolve, reject) => {
+      const id = signed.id;
+
+      const reqTimer = setTimeout(() => {
+        if (this.pending.has(id)) {
+          this.pending.delete(id);
+          reject(new IWanError(`Request timeout ${this.option.timeout} ms`));
+        }
+      }, this.option.timeout);
+      this.pending.set(id, { resolve, reject, time: Date.now(), timerId: reqTimer });
+
+      this.ws.send(JSON.stringify(signed));
+    });
+  }
+
+  // ====================== PUBLIC WS API ======================
   /**
    * Wait for WebSocket connection to be ready
    * 
@@ -267,93 +404,28 @@ export default class IwanClient extends EventEmitter {
     return this._readyPromise;
   }
 
-  // ====================== Clean up old requests ======================
-  private clearPending(reason: string) {
-    console.log("clearPending ===>", "before size", this.pending.size);
-    const err = new IWanError(reason);
-    this.pending.forEach((p) => p.reject(err));
-    this.pending.clear();
-    console.log("clearPending ===>", "after size", this.pending.size);
+  /**
+   * Manually close the connection
+   * 
+   * - Stops all auto-reconnect
+   * - Rejects all pending requests
+   * - Cleans all timers
+   * - Waits for socket to fully close
+   * - Emits 'closed' event
+   */
+  public async close() {
+    this.manuallyClosed = true;
+
+    this.stopHeartbeat();
+    this.clearReconnTimer();
+    this.clearPending('Connection closed by client');
+
+    await this.closeWebsocket();
+
+    this.removeAllListeners();
   }
 
-  private handleMessage(data: any) {
-    let msg: RPCResponse;
-    try {
-      const text = typeof data === 'string' ? data : data.toString();
-      msg = JSON.parse(text);
-    } catch {
-      return;
-    }
-
-    const pending = this.pending.get(msg.id);
-    if (pending) {
-      this.pending.delete(msg.id);
-      msg.error ? pending.reject(msg.error) : pending.resolve(msg.result);
-    }
-  }
-
-  private startHeartbeat() {
-    this.heartbeatTimer = setInterval(() => {
-      if (!this.isOpen() || this.manuallyClosed || this.isBrowser) return;
-
-      if (!this.ws.isAlive) {
-        this.tries--;
-        if (this.tries < 0) this.reconnect();
-      } else {
-        this.ws.isAlive = false;
-        this.ws.ping();
-      }
-    }, DEFAULT_CONFIG.pingTime);
-  }
-
-  private reconnect() {
-    if (this.manuallyClosed || this.lockReconnect) return;
-    this.lockReconnect = true;
-
-    setTimeout(() => {
-      this.tries = DEFAULT_CONFIG.maxTries;
-      this.createWebSocket().catch(e => this.emit('error', e));
-      this.lockReconnect = false;
-      console.log("reconnect")
-      this.emit('reconnect');
-    }, DEFAULT_CONFIG.reconnTime);
-  }
-
-  private isOpen(): boolean {
-    return this.ws?.readyState === WebSocket.OPEN;
-  }
-
-  private async _request<T>(method: string, params: any = {}): Promise<T> {
-    await this.ready();
-
-    if (this.manuallyClosed || !this.isOpen()) {
-      throw new IWanError('WebSocket manually closed or not connected');
-    }
-
-    const payload: RPCMessage = {
-      jsonrpc: '2.0',
-      method,
-      params: { ...params, clientType: this.option.clientType, clientVersion: this.option.clientVersion },
-      id: ++this.index,
-    };
-
-    const signed = await signPayload(payload, this.secretKey);
-
-    return new Promise((resolve, reject) => {
-      const id = signed.id;
-      this.pending.set(id, { resolve, reject, time: Date.now() });
-
-      this.ws.send(JSON.stringify(signed));
-
-      setTimeout(() => {
-        if (this.pending.has(id)) {
-          this.pending.delete(id);
-          reject(new IWanError('Request timeout'));
-        }
-      }, this.option.timeout);
-    });
-  }
-
+  // ====================== PRIVATE API ======================
   private checkHash(hash: string): boolean {
     // check if it has the basic requirements of a hash
     return /^(0x)?[0-9a-fA-F]{64}$/i.test(hash)
@@ -3220,34 +3292,4 @@ export default class IwanClient extends EventEmitter {
   }
 
 
-
-  /**
-   * Manually close the connection
-   * 
-   * - Stops all auto-reconnect
-   * - Rejects all pending requests
-   * - Emits 'closed' event
-   */
-  close() {
-    this.manuallyClosed = true;
-    console.log("close")
-    if (this.heartbeatTimer) {
-      clearInterval(this.heartbeatTimer);
-      this.heartbeatTimer = null;
-    }
-    this.clearPending('Connection closed by client');
-    this.ws?.close(1000, 'Client manual close');
-
-    this.removeAllListeners();
-    this.emit('closed');
-  }
-  /**
-   * Manually reconnect after calling close()
-   */
-  reconnectManually() {
-    if (this.manuallyClosed) {
-      this.manuallyClosed = false;
-      this.createWebSocket().catch(e => this.emit('error', e));
-    }
-  }
 }
