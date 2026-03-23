@@ -1,8 +1,9 @@
 {
   "$schema": "https://typedoc.org/schema.json",
   "entryPoints": ["./src/index.ts"],
-  "out": "./docs/api",
+  "out": "./static/api",
   "tsconfig": "./tsconfig.json",
+  "customCss": "./typedoc-custom.css",
   "exclude": ["**/*.test.ts", "**/*.spec.ts", "**/node_modules/**", "**/dist/**"],
   "excludeExternals": true,
   "excludeInternal": true,
@@ -10,22 +11,23 @@
   "excludeProtected": true,
   "excludeNotDocumented": false,
   "readme": "none",
-  "name": "iwan-sdk",
-  "categoryOrder": ["Constructor", "Methods", "Interfaces", "Types"],
-  "plugin": ["typedoc-plugin-markdown"],
+  "theme": "default",
+  "name": "Wanchain Public RPC API",
+  "plugin": ["typedoc-material-theme"],
+  "categoryOrder": ["Classes", "Interfaces", "Methods", "Functions", "*"],
+  "sort": ["source-order"],
   "hideGenerator": true,
+  "disableSources": false,
+  "includeVersion": true,
   "searchInComments": true,
   "cleanOutputDir": true,
-  "entryFileName": "index.md",
   "githubPages": false,
   "gitRevision": "main",
   "navigation": {
     "includeCategories": true,
     "includeGroups": true
   },
-  "propertiesFormat": "table",
-  "typeDeclarationFormat": "table",
-  "parametersFormat": "table",
-  "enumMembersFormat": "table",
-  "classPropertiesFormat": "table"
+  "sidebarLinks": {
+    "GitHub": "https://github.com/gao623/iwan-sdk"
+  }
 }

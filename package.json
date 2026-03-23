@@ -1,5 +1,5 @@
 {
-  "name": "@wandevs/iwan-sdk",
+  "name": "@gao623/iwan-sdk",
   "version": "1.0.0",
   "description": "TypeScript SDK for iWan RPC (Wanchain) - CommonJS / ESM / Browser / TypeScript",
   "type": "module",
@@ -27,6 +27,7 @@
     "test": "vitest run",
     "dev": "tsdown --watch",
     "build:docs": "typedoc",
+    "docs:deploy": "typedoc && cp static/apidoc/index.html static/apidoc/docs.html",
     "build:docs:watchs": "typedoc --watch"
   },
   "dependencies": {
@@ -41,7 +42,7 @@
     "tsdown": "^0.21.4",
     "tsx": "^4.21.0",
     "typedoc": "^0.28.17",
-    "typedoc-plugin-markdown": "^4.11.0",
+    "typedoc-material-theme": "^1.4.1",
     "typescript": "^5.9.3",
     "unplugin-unused": "^0.5.7",
     "vitest": "^4.1.0"
