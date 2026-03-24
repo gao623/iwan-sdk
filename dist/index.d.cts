@@ -140,7 +140,7 @@ declare class IwanClient extends EventEmitter {
    * @returns Promise that resolves when connected
    * @throws IWanError when connection fails or manually closed
    */
-  private ready;
+  ready(): Promise<void>;
   /**
    * Manually close the connection
    *
