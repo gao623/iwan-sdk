@@ -381,7 +381,7 @@ export default class IwanClient extends EventEmitter {
    * @returns Promise that resolves when connected
    * @throws IWanError when connection fails or manually closed
    */
-  private async ready(): Promise<void> {
+  public async ready(): Promise<void> {
     if (this.isOpen() && !this.manuallyClosed) return Promise.resolve();
 
     if (!this._readyPromise) {
