@@ -551,7 +551,7 @@ export default class IwanClient extends EventEmitter {
    * //   }
    * // ]
    */
-  public async getScEvent(chainType: string, address: string, topics: Array<string|null>, option: any): Promise<any[]> {
+  public async getScEvent(chainType: string, address: string, topics: Array<string|null>, option?: any): Promise<any[]> {
     const { fromBlock, toBlock, ...otherOpts } = option || {};
     return await this._request('getScEvent', { chainType, address, topics, fromBlock: fromBlock || 0, toBlock: toBlock || 'latest', ...otherOpts });
   }
@@ -619,7 +619,7 @@ export default class IwanClient extends EventEmitter {
    * //    }
    * // ]
    */
-  public async getUTXO(chainType: string, minconf: number, maxconf: number, address: string, option: any): Promise<any> {
+  public async getUTXO(chainType: string, minconf: number, maxconf: number, address: string, option?: any): Promise<any> {
     return await this._request('getUTXO', { chainType, address, minconf: minconf, maxconf: maxconf, ...(option || {}) });
   }
 
@@ -668,7 +668,7 @@ export default class IwanClient extends EventEmitter {
    * //   }
    * // ]
    */
-  public async getOpReturnOutputs(chainType: string, option: any): Promise<any> {
+  public async getOpReturnOutputs(chainType: string, option?: any): Promise<any> {
     return await this._request('getOpReturnOutputs', { chainType, ...(option || {}) });
   }
 
@@ -697,7 +697,7 @@ export default class IwanClient extends EventEmitter {
    * //   }
    * // ]
    */
-  public async getStoremanGroups(crossChain: string, option: any): Promise<any> {
+  public async getStoremanGroups(crossChain: string, option?: any): Promise<any> {
     return await this._request('getStoremanGroups', { crossChain, ...(option || {}) });
   }
 
@@ -728,7 +728,7 @@ export default class IwanClient extends EventEmitter {
    * //   }
    * // ]
    */
-  public async getTokenStoremanGroups(crossChain: string, tokenScAddr: string, option: any): Promise<any> {
+  public async getTokenStoremanGroups(crossChain: string, tokenScAddr: string, option?: any): Promise<any> {
     return await this._request('getTokenStoremanGroups', { crossChain, tokenScAddr, ...(option || {}) });
   }
 
@@ -744,7 +744,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // "180000000000"
    */
-  public async getGasPrice(chainType: string, option: any): Promise<string> {
+  public async getGasPrice(chainType: string, option?: any): Promise<string> {
     return await this._request('getGasPrice', { chainType, ...(option || {}) });
   }
 
@@ -762,7 +762,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // "10000000000000000000000"
    */
-  public async getTokenBalance(chainType: string, address: string, tokenScAddr: string, option: any): Promise<string> {
+  public async getTokenBalance(chainType: string, address: string, tokenScAddr: string, option?: any): Promise<string> {
     return await this._request('getTokenBalance', { chainType, address, tokenScAddr, ...(option || {}) });
   }
 
@@ -783,7 +783,7 @@ export default class IwanClient extends EventEmitter {
    * //   "0xfac95c16da814d24cc64b3186348afecf527324e": "0"
    * // }
    */
-  public async getMultiTokenBalance(chainType: string, address: Array<string>, tokenScAddr: string, option: any): Promise<any> {
+  public async getMultiTokenBalance(chainType: string, address: Array<string>, tokenScAddr: string, option?: any): Promise<any> {
     return await this._request('getMultiTokenBalance', { chainType, address, tokenScAddr, ...(option || {}) });
   }
 
@@ -815,7 +815,7 @@ export default class IwanClient extends EventEmitter {
    * //     }
    * // ]
    */
-  public async getAllBalances(chainType: string, address: string, option: any): Promise<any> {
+  public async getAllBalances(chainType: string, address: string, option?: any): Promise<any> {
     return await this._request('getAllBalances', { chainType, address, ...(option || {}) });
   }
 
@@ -832,7 +832,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // "30000000000000000000000"
    */
-  public async getTokenSupply(chainType: string, tokenScAddr: string, option: any): Promise<string> {
+  public async getTokenSupply(chainType: string, tokenScAddr: string, option?: any): Promise<string> {
     return await this._request('getTokenSupply', { chainType, tokenScAddr, ...(option || {}) });
   }
 
@@ -851,7 +851,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // "999999999999980000000000000"
    */
-  public async getTokenAllowance(chainType: string, tokenScAddr: string, ownerAddr: string, spenderAddr: string, option: any): Promise<string> {
+  public async getTokenAllowance(chainType: string, tokenScAddr: string, ownerAddr: string, spenderAddr: string, option?: any): Promise<string> {
     return await this._request('getTokenAllowance', { chainType, tokenScAddr, ownerAddr, spenderAddr, ...(option || {}) });
   }
 
@@ -872,7 +872,7 @@ export default class IwanClient extends EventEmitter {
    * //   "decimals": "18"
    * // }
    */
-  public async getTokenInfo(chainType: string, tokenScAddr: string, option: any): Promise<any> {
+  public async getTokenInfo(chainType: string, tokenScAddr: string, option?: any): Promise<any> {
     return await this._request('getTokenInfo', { chainType, tokenScAddr, ...(option || {}) });
   }
 
@@ -899,7 +899,7 @@ export default class IwanClient extends EventEmitter {
    * //   }
    * // }
    */
-  public async getMultiTokenInfo(chainType: string, tokenScAddrArray: Array<string>, option: any): Promise<any> {
+  public async getMultiTokenInfo(chainType: string, tokenScAddrArray: Array<string>, option?: any): Promise<any> {
     return await this._request('getMultiTokenInfo', { chainType, tokenScAddrArray, ...(option || {}) });
   }
 
@@ -916,7 +916,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // "0x0"
    */
-  public async getNonce(chainType: string, address: string, option: any): Promise<string> {
+  public async getNonce(chainType: string, address: string, option?: any): Promise<string> {
     return await this._request('getNonce', { chainType, address, ...(option || {}) });
   }
 
@@ -933,7 +933,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // "0x0"
    */
-  public async getNonceIncludePending(chainType: string, address: string, option: any): Promise<string> {
+  public async getNonceIncludePending(chainType: string, address: string, option?: any): Promise<string> {
     return await this._request('getNonceIncludePending', { chainType, address, ...(option || {}) });
   }
 
@@ -949,7 +949,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // "119858"
    */
-  public async getBlockNumber(chainType: string, option: any): Promise<string> {
+  public async getBlockNumber(chainType: string, option?: any): Promise<string> {
     return await this._request('getBlockNumber', { chainType, ...(option || {}) });
   }
 
@@ -966,7 +966,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // "0x4dcfc82728b5a9307f249ac095c8e6fcc436db4f85a094a0c5a457255c20f80f"
    */
-  public async sendRawTransaction(chainType: string, signedTx: string, option: any): Promise<string> {
+  public async sendRawTransaction(chainType: string, signedTx: string, option?: any): Promise<string> {
     return await this._request('sendRawTransaction', { chainType, signedTx, ...(option || {}) });
   }
 
@@ -999,7 +999,7 @@ export default class IwanClient extends EventEmitter {
    * //   "s": "0x3a79e17290fe2a9f4e5b5c5431eb322882729d68ca0d736c5d9b1f3285c9169e"
    * // }
    */
-  public async getTxInfo(chainType: string, txHash: string, option: any): Promise<any> {
+  public async getTxInfo(chainType: string, txHash: string, option?: any): Promise<any> {
     return await this._request('getTxInfo', { chainType, txHash, ...(option || {}) });
   }
 
@@ -1041,7 +1041,7 @@ export default class IwanClient extends EventEmitter {
    * //   "transactionIndex": 0
    * // }
    */
-  public async getTransactionConfirm(chainType: string, waitBlocks: number, txHash: string, option: any): Promise<any> {
+  public async getTransactionConfirm(chainType: string, waitBlocks: number, txHash: string, option?: any): Promise<any> {
     return await this._request('getTransactionConfirm', { chainType, waitBlocks, txHash, ...(option || {}) });
   }
 
@@ -1072,7 +1072,7 @@ export default class IwanClient extends EventEmitter {
    * //   "transactionIndex": 0
    * // }
    */
-  public async getTransactionReceipt(chainType: string, txHash: string, option: any): Promise<any> {
+  public async getTransactionReceipt(chainType: string, txHash: string, option?: any): Promise<any> {
     return await this._request('getTransactionReceipt', { chainType, txHash, ...(option || {}) });
   }
 
@@ -1108,7 +1108,7 @@ export default class IwanClient extends EventEmitter {
    * //   }
    * // ]
    */
-  public async getTransByBlock(chainType: string, blockHashOrBlockNumber: string, option: any): Promise<any> {
+  public async getTransByBlock(chainType: string, blockHashOrBlockNumber: string, option?: any): Promise<any> {
     const blockOpt = this.checkHash(blockHashOrBlockNumber) ? { blockHash: blockHashOrBlockNumber } : { blockNumber: blockHashOrBlockNumber };
     return await this._request('getTransByBlock', { chainType, ...blockOpt, ...(option || {}) });
   }
@@ -1161,7 +1161,7 @@ export default class IwanClient extends EventEmitter {
    * //   }
    * // ]
    */
-  public async getTransByAddress(chainType: string, address: string, option: any): Promise<any> {
+  public async getTransByAddress(chainType: string, address: string, option?: any): Promise<any> {
     return await this._request('getTransByAddress', { chainType, address, ...(option || {}) });
   }
 
@@ -1210,7 +1210,7 @@ export default class IwanClient extends EventEmitter {
    * //   }
    * // ]
    */
-  public async getTransByAddressBetweenBlocks(chainType: string, address: string, startBlockNo: number, endBlockNo: number, option: any): Promise<any> {
+  public async getTransByAddressBetweenBlocks(chainType: string, address: string, startBlockNo: number, endBlockNo: number, option?: any): Promise<any> {
     return await this._request('getTransByAddressBetweenBlocks', { chainType, address, startBlockNo, endBlockNo, ...(option || {}) });
   }
 
@@ -1248,7 +1248,7 @@ export default class IwanClient extends EventEmitter {
    * //   "transactionsRoot": "0x96fc902544191c38f1c9a2725ea2ae29e34246fb4e95728f3e72added7c9574b"
    * // }
    */
-  public async getBlockByNumber(chainType: string, blockNumber: string, option: any): Promise<any> {
+  public async getBlockByNumber(chainType: string, blockNumber: string, option?: any): Promise<any> {
     return await this._request('getBlockByNumber', { chainType, blockNumber, ...(option || {}) });
   }
 
@@ -1286,7 +1286,7 @@ export default class IwanClient extends EventEmitter {
    * //   "transactionsRoot": "0x96fc902544191c38f1c9a2725ea2ae29e34246fb4e95728f3e72added7c9574b"
    * // }
    */
-  public async getBlockByHash(chainType: string, blockHash: string, option: any): Promise<any> {
+  public async getBlockByHash(chainType: string, blockHash: string, option?: any): Promise<any> {
     return await this._request('getBlockByHash', { chainType, blockHash, ...(option || {}) });
   }
 
@@ -1304,7 +1304,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // 1
    */
-  public async getBlockTransactionCount(chainType: string, blockHashOrBlockNumber: string, option: any): Promise<number> {
+  public async getBlockTransactionCount(chainType: string, blockHashOrBlockNumber: string, option?: any): Promise<number> {
     const blockOpt = this.checkHash(blockHashOrBlockNumber) ? { blockHash: blockHashOrBlockNumber } : { blockNumber: blockHashOrBlockNumber };
     return await this._request('getBlockTransactionCount', { chainType, ...blockOpt, ...(option || {}) });
   }
@@ -1324,7 +1324,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // 1
    */
-  public async getTransCount(chainType: string, option: any): Promise<number> {
+  public async getTransCount(chainType: string, option?: any): Promise<number> {
     return await this._request('getTransCount', { chainType, ...(option || {}) });
   }
 
@@ -1358,7 +1358,7 @@ export default class IwanClient extends EventEmitter {
    * //   "signatures": []
    * // }
    */
-  public async packTransaction(chainType: string, tx: object, option: any): Promise<any> {
+  public async packTransaction(chainType: string, tx: object, option?: any): Promise<any> {
     return await this._request('packTransaction', { chainType, tx, ...(option || {}) });
   }
 
@@ -1415,7 +1415,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // "0x8cc420e422b3fa1c416a14fc600b3354e3312524"
    */
-  public async callScFunc(chainType: string, scAddr: string, name: string, args: Array<any>, abi: Array<any>, version: string, option: any): Promise<any> {
+  public async callScFunc(chainType: string, scAddr: string, name: string, args: Array<any>, abi: Array<any>, version: string, option?: any): Promise<any> {
     return await this._request('callScFunc', { chainType, scAddr, name, args, abi, version, ...(option || {}) });
   }
 
@@ -1513,7 +1513,7 @@ export default class IwanClient extends EventEmitter {
    * //   }
    * // ]
    */
-  public async getRegTokens(crossChain: string, option: any): Promise<Array<any>> {
+  public async getRegTokens(crossChain: string, option?: any): Promise<Array<any>> {
     return await this._request('getRegTokens', { crossChain, ...(option || {}) });
   }
 
@@ -1571,7 +1571,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // 21000
    */
-  public async estimateGas(chainType: string, tx: object, option: any): Promise<number|string> {
+  public async estimateGas(chainType: string, tx: object, option?: any): Promise<number|string> {
     return await this._request('estimateGas', { chainType, ...tx, ...(option || {}) });
   }
 
@@ -1604,7 +1604,7 @@ export default class IwanClient extends EventEmitter {
    * //   server_full_version_string: 'v2.0.2-aa60b9caf9b7e2bd2411bb199c0c1d9fd8f085d5'
    * // }
    */
-  public async getChainInfo(chainType: string, option: any): Promise<any> {
+  public async getChainInfo(chainType: string, option?: any): Promise<any> {
     return await this._request('getChainInfo', { chainType, ...(option || {}) });
   }
 
@@ -1627,7 +1627,7 @@ export default class IwanClient extends EventEmitter {
    * //   "issuer": "eosio"
    * // }
    */
-  public async getStats(chainType: string, tokenScAddr: string, symbol: string, option: any): Promise<any> {
+  public async getStats(chainType: string, tokenScAddr: string, symbol: string, option?: any): Promise<any> {
     return await this._request('getCurrencyStats', { chainType, tokenScAddr, symbol, ...(option || {}) });
   }
 
@@ -1705,7 +1705,7 @@ export default class IwanClient extends EventEmitter {
    * //   "rex_info": null
    * // }
    */
-  public async getAccountInfo(chainType: string, address: string, option: any): Promise<any> {
+  public async getAccountInfo(chainType: string, address: string, option?: any): Promise<any> {
     return await this._request('getAccountInfo', { chainType, address, ...(option || {}) });
   }
 
@@ -1751,7 +1751,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // ['PUB_K1_69X3383RzBZj41k73CSjUNXM5MYGpnDxyPnWUKPEtYQmVzqTY7']
    */
-  public async getRequiredKeys(chainType: string, txArgs: object, option: any): Promise<Array<string>> {
+  public async getRequiredKeys(chainType: string, txArgs: object, option?: any): Promise<Array<string>> {
     return await this._request('getRequiredKeys', { chainType, txArgs, ...(option || {}) });
   }
 
@@ -2050,7 +2050,7 @@ export default class IwanClient extends EventEmitter {
    * //   "1557": 0
    * // }
    */
-  public async getRawAbi(chainType: string, scAddr: string, option: any): Promise<any> {
+  public async getRawAbi(chainType: string, scAddr: string, option?: any): Promise<any> {
     return await this._request('getRawAbi', { chainType, scAddr, ...(option || {}) });
   }
 
@@ -2305,14 +2305,14 @@ export default class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<number>} - The current epoch ID.
    * @example
    * const ret = await sdk.getEpochID("WAN");
    * console.log(ret);
    * // 18102
    */
-  public async getEpochID(chainType: string, option: any): Promise<number> {
+  public async getEpochID(chainType: string, option?: any): Promise<number> {
     return await this._request('getEpochID', { chainType, ...(option || {}) });
   }
 
@@ -2321,14 +2321,14 @@ export default class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<number>} - The current epoch slot ID.
    * @example
    * const ret = await sdk.getSlotID("WAN");
    * console.log(ret);
    * // 2541
    */
-  public async getSlotID(chainType: string, option: any): Promise<number> {
+  public async getSlotID(chainType: string, option?: any): Promise<number> {
     return await this._request('getSlotID', { chainType, ...(option || {}) });
   }
 
@@ -2338,7 +2338,7 @@ export default class IwanClient extends EventEmitter {
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {number} epochID - The epochID you want to search.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<any>} - The public key list.
    * @example
    * const ret = await sdk.getEpochLeadersByEpochID("WAN", 18102);
@@ -2353,7 +2353,7 @@ export default class IwanClient extends EventEmitter {
    * //   "000049": "04fdb485b566c2ddb40e2f4341b1e5746479a7c45e3d8101b1360b8bdba6206deee520ceecc9e9897e3b05b53e3ffa6fa659bef47c384984c0bc021a843df10847"
    * // }
    */
-  public async getEpochLeadersByEpochID(chainType: string, epochID: number, option: any): Promise<any> {
+  public async getEpochLeadersByEpochID(chainType: string, epochID: number, option?: any): Promise<any> {
     return await this._request('getEpochLeadersByEpochID', { chainType, epochID, ...(option || {}) });
   }
 
@@ -2363,7 +2363,7 @@ export default class IwanClient extends EventEmitter {
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {number} epochID - The epochID you want to search.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<any>} - The Random Number Proposer public keys.
    * @example
    * const ret = await sdk.getRandomProposersByEpochID("WAN", 18102);
@@ -2378,7 +2378,7 @@ export default class IwanClient extends EventEmitter {
    *   "000024": "2094589617397846c5125cf5922ba993643c401998ae8817d5005fe21245f4bc0fbb25158c54446757d2b03d89da10d7dfbbaa23afa38c6e87115dcebe2a8e4d"
    * }
    */
-  public async getRandomProposersByEpochID(chainType: string, epochID: number, option: any): Promise<any> {
+  public async getRandomProposersByEpochID(chainType: string, epochID: number, option?: any): Promise<any> {
     return await this._request('getRandomProposersByEpochID', { chainType, epochID, ...(option || {}) });
   }
 
@@ -2388,7 +2388,7 @@ export default class IwanClient extends EventEmitter {
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {number} blockNumber - The blockNumber you want to search.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<Array<any>>} - The specified block staker info.
    * @example
    * const ret = await sdk.getEpochID("WAN");
@@ -2420,7 +2420,7 @@ export default class IwanClient extends EventEmitter {
    * //    ... ...
    * // ]
    */
-  public async getStakerInfo(chainType: string, blockNumber: number, option: any): Promise<Array<any>> {
+  public async getStakerInfo(chainType: string, blockNumber: number, option?: any): Promise<Array<any>> {
     return await this._request('getStakerInfo', { chainType, blockNumber, ...(option || {}) });
   }
 
@@ -2430,7 +2430,7 @@ export default class IwanClient extends EventEmitter {
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {number} epochID - The epochID you want to search.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<Array<any>>} - The reward information.
    * @example
    * const ret = await sdk.getEpochIncentivePayDetail("WAN", 18101);
@@ -2468,7 +2468,7 @@ export default class IwanClient extends EventEmitter {
    * //      ... ...
    * // ]
    */
-  public async getEpochIncentivePayDetail(chainType: string, epochID: number, option: any): Promise<Array<any>> {
+  public async getEpochIncentivePayDetail(chainType: string, epochID: number, option?: any): Promise<Array<any>> {
     return await this._request('getEpochIncentivePayDetail', { chainType, epochID, ...(option || {}) });
   }
 
@@ -2478,7 +2478,7 @@ export default class IwanClient extends EventEmitter {
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {number} epochID - The epochID you want to search.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<any>} - The activity information.
    * @example
    * const ret = await sdk.getActivity("WAN", 18102);
@@ -2547,7 +2547,7 @@ export default class IwanClient extends EventEmitter {
    * //   "slCtrlCount":0
    * //   }
    */
-  public async getActivity(chainType: string, epochID: number, option: any): Promise<any> {
+  public async getActivity(chainType: string, epochID: number, option?: any): Promise<any> {
     return await this._request('getActivity', { chainType, epochID, ...(option || {}) });
   }
 
@@ -2557,7 +2557,7 @@ export default class IwanClient extends EventEmitter {
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {number} epochID - The epochID you want to search.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<any>} - The slot leader activity information.
    * @example
    * const ret = await sdk.getEpochID("WAN");
@@ -2586,7 +2586,7 @@ export default class IwanClient extends EventEmitter {
    * //   "slCtrlCount": 8849
    * //   }
    */
-  public async getSlotActivity(chainType: string, epochID: number, option: any): Promise<any> {
+  public async getSlotActivity(chainType: string, epochID: number, option?: any): Promise<any> {
     return await this._request('getSlotActivity', { chainType, epochID, ...(option || {}) });
   }
 
@@ -2596,7 +2596,7 @@ export default class IwanClient extends EventEmitter {
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {number} epochID - The epochID you want to search.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<any>} - The validator activity information.
    * @example
    * const ret = await sdk.getValidatorActivity("WAN", 18102);
@@ -2661,7 +2661,7 @@ export default class IwanClient extends EventEmitter {
    * //   "rpActivity":[1,1,1,1,0,1,1,1,1,0,1,0,0,1,0,0,1,1,0,0,0,0,1,1,1]
    * // }
    */
-  public async getValidatorActivity(chainType: string, epochID: number, option: any): Promise<any> {
+  public async getValidatorActivity(chainType: string, epochID: number, option?: any): Promise<any> {
     return await this._request('getValidatorActivity', { chainType, epochID, ...(option || {}) });
   }
 
@@ -2670,14 +2670,14 @@ export default class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<number>} - The current highest stable block number.
    * @example
    * const ret = await sdk.getValidatorActivity("WAN", 18102);
    * console.log(ret);
    * // 4018017
    */
-  public async getMaxStableBlkNumber(chainType: string, option: any): Promise<number> {
+  public async getMaxStableBlkNumber(chainType: string, option?: any): Promise<number> {
     return await this._request('getMaxStableBlkNumber', { chainType, ...(option || {}) });
   }
 
@@ -2688,14 +2688,14 @@ export default class IwanClient extends EventEmitter {
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {number} epochID - The epochID you want to search.
    * @param {number} blockNumber - The blockNumber you want to search. If blockNumber is -1, use the latest block.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<string>} - The current highest stable block number.
    * @example
    * const ret = await sdk.getRandom("WAN", 18102, -1);
    * console.log(ret);
    * // "0x3a4277627fa45c3bf691014d79c05da2427f8eb115a076b71af7690cdb3a0b5e"
    */
-  public async getRandom(chainType: string, epochID: number, blockNumber: number, option: any): Promise<string> {
+  public async getRandom(chainType: string, epochID: number, blockNumber: number, option?: any): Promise<string> {
     return await this._request('getRandom', { chainType, epochID, blockNumber, ...(option || {}) });
   }
 
@@ -2705,14 +2705,14 @@ export default class IwanClient extends EventEmitter {
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {string} address - The validator address you want to search.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<any>} - The specified validator info.
    * @example
    * const ret = await sdk.getValidatorInfo("WAN", "0xda8fa1aee77709d37f59fb96afd4cf10ccaeb6ce");
    * console.log(ret);
    * // { "address": "0xda8fa1aee77709d37f59fb96afd4cf10ccaeb6ce", "amount": "5.01e+22", "feeRate": 1500 }
    */
-  public async getValidatorInfo(chainType: string, address: string, option: any): Promise<any> {
+  public async getValidatorInfo(chainType: string, address: string, option?: any): Promise<any> {
     return await this._request('getValidatorInfo', { chainType, address, ...(option || {}) });
   }
 
@@ -2722,7 +2722,7 @@ export default class IwanClient extends EventEmitter {
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {string} address - The validator owner address you want to search.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<Array<any>>} - The specified validator staking info.
    * @example
    * const ret = await sdk.getValidatorStakeInfo("WAN", "0x086b4cfadfd9f232b068c2e8263d608baee85163");
@@ -2773,7 +2773,7 @@ export default class IwanClient extends EventEmitter {
    * //   }
    * // ]
    */
-  public async getValidatorStakeInfo(chainType: string, address: string, option: any): Promise<Array<any>> {
+  public async getValidatorStakeInfo(chainType: string, address: string, option?: any): Promise<Array<any>> {
     return await this._request('getValidatorStakeInfo', { chainType, address, ...(option || {}) });
   }
 
@@ -2783,7 +2783,7 @@ export default class IwanClient extends EventEmitter {
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {string|Array<string>} address - The validator address you want to search.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<Array<any>>} - The specified validator's total incentives.
    * @example
    * const ret = await sdk.getValidatorTotalIncentive("WAN", "0xda8fa1aee77709d37f59fb96afd4cf10ccaeb6ce");
@@ -2797,7 +2797,7 @@ export default class IwanClient extends EventEmitter {
    * //   }
    * // ]
    */
-  public async getValidatorTotalIncentive(chainType: string, address: string, option: any): Promise<Array<any>> {
+  public async getValidatorTotalIncentive(chainType: string, address: string, option?: any): Promise<Array<any>> {
     return await this._request('getValidatorTotalIncentive', { chainType, address, ...(option || {}) });
   }
 
@@ -2807,7 +2807,7 @@ export default class IwanClient extends EventEmitter {
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {string} address - The delegator address you want to query.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<Array<any>>} - The identified delegator's staking info.
    * @example
    * const ret = await sdk.getDelegatorStakeInfo("WAN", "0xa6de4408d9003ee992b5dc0e1bf27968e48727dc");
@@ -2835,7 +2835,7 @@ export default class IwanClient extends EventEmitter {
    * //   }
    * // ]
    */
-  public async getDelegatorStakeInfo(chainType: string, address: string, option: any): Promise<Array<any>> {
+  public async getDelegatorStakeInfo(chainType: string, address: string, option?: any): Promise<Array<any>> {
     return await this._request('getDelegatorStakeInfo', { chainType, address, ...(option || {}) });
   }
 
@@ -2845,7 +2845,7 @@ export default class IwanClient extends EventEmitter {
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {string} address - The delegator address you want to query.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<Array<any>>} - The identified delegator rewards.
    * @example
    * const ret = await sdk.getDelegatorIncentive("WAN", "0xa6de4408d9003ee992b5dc0e1bf27968e48727dc");
@@ -2864,7 +2864,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getDelegatorIncentive(chainType: string, address: string, option: any): Promise<Array<any>> {
+  public async getDelegatorIncentive(chainType: string, address: string, option?: any): Promise<Array<any>> {
     return await this._request('getDelegatorIncentive', { chainType, address, ...(option || {}) });
   }
 
@@ -2874,7 +2874,7 @@ export default class IwanClient extends EventEmitter {
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {string} address - The delegator address you want to query.
-   * @param {any} option - Optional.
+   * @param {any} [option] - Optional.
    * <br>&nbsp;&nbsp;<code>validatorAddress</code> - The validator's address you want to query.
    * <br>&nbsp;&nbsp;<code>from</code> - The number that starting epochID you want to query.
    * <br>&nbsp;&nbsp;<code>to</code> - The number that ending epochID you want to query.
@@ -2898,7 +2898,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getDelegatorTotalIncentive(chainType: string, address: string, option: any): Promise<Array<any>> {
+  public async getDelegatorTotalIncentive(chainType: string, address: string, option?: any): Promise<Array<any>> {
     return await this._request('getDelegatorTotalIncentive', { chainType, address, ...(option || {}) });
   }
 
@@ -2908,7 +2908,7 @@ export default class IwanClient extends EventEmitter {
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {number} epochID - The epochID you want to search.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<Array<any>>} - The Epoch Leader and Random Number Proposer addresses and public key lists.
    * @example
    * const ret = await sdk.getLeaderGroupByEpochID("WAN", 18102);
@@ -2941,7 +2941,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getLeaderGroupByEpochID(chainType: string, epochID: number, option: any): Promise<Array<any>> {
+  public async getLeaderGroupByEpochID(chainType: string, epochID: number, option?: any): Promise<Array<any>> {
     return await this._request('getLeaderGroupByEpochID', { chainType, epochID, ...(option || {}) });
   }
 
@@ -2950,14 +2950,14 @@ export default class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<any>} - The current epoch info.
    * @example
    * const ret = await sdk.getCurrentEpochInfo("WAN");
    * console.log(ret);
    * // { "blockNumber": 3938057, "slotId": 5661, "epochId": 18102 }
    */
-  public async getCurrentEpochInfo(chainType: string, option: any): Promise<any> {
+  public async getCurrentEpochInfo(chainType: string, option?: any): Promise<any> {
     return await this._request('getCurrentEpochInfo', { chainType, ...(option || {}) });
   }
 
@@ -2966,7 +2966,7 @@ export default class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<Array<any>>} - The information on each of the current validators.
    * @example
    * const ret = await sdk.getRandom("WAN", 18102, -1);
@@ -2999,7 +2999,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getCurrentStakerInfo(chainType: string, option: any): Promise<Array<any>> {
+  public async getCurrentStakerInfo(chainType: string, option?: any): Promise<Array<any>> {
     return await this._request('getCurrentStakerInfo', { chainType, ...(option || {}) });
   }
 
@@ -3008,14 +3008,14 @@ export default class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<number>} - The total number of slots in an epoch.
    * @example
    * const ret = await sdk.apiTest.getSlotCount("WAN");
    * console.log(ret);
    * // 17280
    */
-  public async getSlotCount(chainType: string, option: any): Promise<number> {
+  public async getSlotCount(chainType: string, option?: any): Promise<number> {
     return await this._request('getSlotCount', { chainType, ...(option || {}) });
   }
 
@@ -3024,14 +3024,14 @@ export default class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<number>} - The time span of a slot in seconds.
    * @example
    * const ret = await sdk.getSlotTime("WAN");
    * console.log(ret);
    * // 5
    */
-  public async getSlotTime(chainType: string, option: any): Promise<number> {
+  public async getSlotTime(chainType: string, option?: any): Promise<number> {
     return await this._request('getSlotTime', { chainType, ...(option || {}) });
   }
 
@@ -3041,14 +3041,14 @@ export default class IwanClient extends EventEmitter {
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {number} epochID - The epochID you want to search.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<number>} - The specified epoch's start time in UTC time seconds.
    * @example
    * const ret = await sdk.getTimeByEpochID("WAN", 18108);
    * console.log(ret);
    * // 1564531200
    */
-  public async getTimeByEpochID(chainType: string, epochID: number, option: any): Promise<number> {
+  public async getTimeByEpochID(chainType: string, epochID: number, option?: any): Promise<number> {
     return await this._request('getTimeByEpochID', { chainType, epochID, ...(option || {}) });
   }
 
@@ -3058,14 +3058,14 @@ export default class IwanClient extends EventEmitter {
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {number} time - The UTC time seconds you want to query.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<number>} - The current highest stable block number.
    * @example
    * const ret = await sdk.getEpochIDByTime("WAN", 1564550000);
    * console.log(ret);
    * // 18108
    */
-  public async getEpochIDByTime(chainType: string, time: number, option: any): Promise<number> {
+  public async getEpochIDByTime(chainType: string, time: number, option?: any): Promise<number> {
     return await this._request('getEpochIDByTime', { chainType, time, ...(option || {}) });
   }
 
@@ -3091,7 +3091,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getRegisteredValidator(address: string|Array<string>|number|undefined, after: number|undefined): Promise<Array<any>> {
+  public async getRegisteredValidator(address?: string|Array<string>|number|undefined, after?: number|undefined): Promise<Array<any>> {
     let option = {};
     if ('number' === typeof address) {
       option = { after: address };
@@ -3130,7 +3130,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getRegisteredToken(tokenOrigAccount: string, after: number): Promise<Array<object>> {
+  public async getRegisteredToken(tokenOrigAccount?: string, after?: number): Promise<Array<object>> {
     let option = {};
     if ('number' === typeof tokenOrigAccount) {
       option = { after: tokenOrigAccount };
@@ -3185,7 +3185,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getRegisteredDapp(option: any): Promise<Array<object>> {
+  public async getRegisteredDapp(option?: any): Promise<Array<object>> {
     return await this._request('getRegisteredDapp', { ...(option || {}) });
   }
 
@@ -3211,7 +3211,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getRegisteredAds(option: any): Promise<Array<object>> {
+  public async getRegisteredAds(option?: any): Promise<Array<object>> {
     return await this._request('getRegisteredAds', { ...(option || {}) });
   }
 
@@ -3236,7 +3236,7 @@ export default class IwanClient extends EventEmitter {
    * //    ... ...
    * // ]
    */
-  public async getRegisteredCoinGecko(option: any): Promise<Array<object>> {
+  public async getRegisteredCoinGecko(option?: any): Promise<Array<object>> {
     return await this._request('getRegisteredCoinGecko', { ...(option || {}) });
   }
 
@@ -3252,7 +3252,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // { "firstBlockNumber": 3560000, "firstEpochId": 18078 }
    */
-  public async getPosInfo(chainType: string, option: any): Promise<object> {
+  public async getPosInfo(chainType: string, option?: any): Promise<object> {
     return await this._request('getPosInfo', { chainType, ...(option || {}) });
   }
 
@@ -3269,7 +3269,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // [ { "epochId": 18102, "blockNumber": 3938057, }, { "epochId": 18101, "blockNumber": 3933152, } ]
    */
-  public async getMaxBlockNumber(chainType: string, epochID: number, option: any): Promise<Array<object>> {
+  public async getMaxBlockNumber(chainType: string, epochID: number, option?: any): Promise<Array<object>> {
     return await this._request('getMaxBlockNumber', { chainType, epochID, ...(option || {}) });
   }
 
@@ -3297,7 +3297,7 @@ export default class IwanClient extends EventEmitter {
    * //     }
    * // ]
    */
-  public async getValidatorSupStakeInfo(chainType: string, address: string|Array<string>, option: any): Promise<Array<object>> {
+  public async getValidatorSupStakeInfo(chainType: string, address: string|Array<string>, option?: any): Promise<Array<object>> {
     return await this._request('getValidatorSupStakeInfo', { chainType, address, ...(option || {}) });
   }
 
@@ -3328,7 +3328,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getDelegatorSupStakeInfo(chainType: string, address: string|Array<string>, option: any): Promise<Array<object>> {
+  public async getDelegatorSupStakeInfo(chainType: string, address: string|Array<string>, option?: any): Promise<Array<object>> {
     return await this._request('getDelegatorSupStakeInfo', { chainType, address, ...(option || {}) });
   }
 
@@ -3345,7 +3345,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // 4003788
    */
-  public async getEpochIncentiveBlockNumber(chainType: string, epochID: number, option: any): Promise<number> {
+  public async getEpochIncentiveBlockNumber(chainType: string, epochID: number, option?: any): Promise<number> {
     return await this._request('getEpochIncentiveBlockNumber', { chainType, epochID, ...(option || {}) });
   }
 
@@ -3368,7 +3368,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getEpochStakeOut(chainType: string, epochID: number, option: any): Promise<Array<object>> {
+  public async getEpochStakeOut(chainType: string, epochID: number, option?: any): Promise<Array<object>> {
     return await this._request('getEpochStakeOut', { chainType, epochID, ...(option || {}) });
   }
 
@@ -3385,7 +3385,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // true
    */
-  public async checkOTAUsed(chainType: string, image: string, option: any): Promise<boolean> {
+  public async checkOTAUsed(chainType: string, image: string, option?: any): Promise<boolean> {
     return await this._request('checkOTAUsed', { chainType, image, ...(option || {}) });
   }
 
@@ -3403,7 +3403,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // { "name": "test", "address":"0x3786038ef9c2f659772c6c2ee8402bdfdc511bb5" }
    */
-  public async fetchService(srvType: string, funcName: string, type: string, option: any): Promise<object> {
+  public async fetchService(srvType: string, funcName: string, type: string, option?: any): Promise<object> {
     return await this._request('fetchService', { srvType, funcName, type, ...(option || {}) });
   }
 
@@ -3420,7 +3420,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // { "name": "test", "address":"0x3786038ef9c2f659772c6c2ee8402bdfdc511bb5" }
    */
-  public async fetchSpecialService(url: string, type: string, option: any): Promise<object> {
+  public async fetchSpecialService(url: string, type: string, option?: any): Promise<object> {
     return await this._request('fetchSpecialService', { url, type, ...(option || {}) });
   }
 
@@ -3454,7 +3454,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getRegisteredOrigToken(chainType: string, option: any): Promise<Array<object>> {
+  public async getRegisteredOrigToken(chainType: string, option?: any): Promise<Array<object>> {
     return await this._request('getRegisteredOrigToken', { chainType, ...(option || {}) });
   }
 
@@ -3488,7 +3488,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getRegisteredTokenLogo(chainType: string, option: any): Promise<Array<object>> {
+  public async getRegisteredTokenLogo(chainType: string, option?: any): Promise<Array<object>> {
     return await this._request('getRegisteredTokenLogo', { chainType, ...(option || {}) });
   }
 
@@ -3519,7 +3519,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getRegisteredChainLogo(option: any): Promise<Array<object>> {
+  public async getRegisteredChainLogo(option?: any): Promise<Array<object>> {
     return await this._request('getRegisteredChainLogo', { ...(option || {}) });
   }
 
@@ -3542,7 +3542,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getRegisteredMultiChainOrigToken(option: any): Promise<Array<object>> {
+  public async getRegisteredMultiChainOrigToken(option?: any): Promise<Array<object>> {
     return await this._request('getRegisteredMultiChainOrigToken', { ...(option || {}) });
   }
 
@@ -3570,7 +3570,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getRegisteredMapToken(chainType: string, option: any): Promise<Array<object>> {
+  public async getRegisteredMapToken(chainType: string, option?: any): Promise<Array<object>> {
     return await this._request('getRegisteredMapToken', { chainType, ...(option || {}) });
   }
 
@@ -3594,7 +3594,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getRegisteredSubgraph(option: any): Promise<Array<object>> {
+  public async getRegisteredSubgraph(option?: any): Promise<Array<object>> {
     return await this._request('getRegisteredSubgraph', { ...(option || {}) });
   }
 
@@ -3611,7 +3611,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // [{"chainType":"ETH","isNativeCoin":true,"issuer":"Ethereum","tokenScAddr":"0x0000000000000000000000000000000000000000","tokenType":"erc20","updatedAt":1680000764477}]
    */
-  public async getRegisteredTokenIssuer(option: any): Promise<Array<object>> {
+  public async getRegisteredTokenIssuer(option?: any): Promise<Array<object>> {
     return await this._request('getRegisteredTokenIssuer', { ...(option || {}) });
   }
 
@@ -3629,7 +3629,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // [{"groupTag":"ETH","address":"0x0000000000000000000000000000000000000000","name":"ethereum","symbol":"ETH","decimals":"18","tokenType":"erc20","chainType":"ETH"},{"groupTag":"WAN","address":"0xdd22d37d976648071277306fbf4883cb21ea86c6","name":"WAN@ethereum","symbol":"WAN","decimals":"18","tokenType":"erc20","chainType":"ETH"},...]
    */
-  public async getRegisteredTokenList(option: any): Promise<Array<object>> {
+  public async getRegisteredTokenList(option?: any): Promise<Array<object>> {
     return await this._request('getRegisteredTokenList', { ...(option || {}) });
   }
 
@@ -3692,7 +3692,7 @@ export default class IwanClient extends EventEmitter {
    * //     ... ...
    * // ]
    */
-  public async getStoremanGroupList(option: any): Promise<Array<object>> {
+  public async getStoremanGroupList(option?: any): Promise<Array<object>> {
     return await this._request('getStoremanGroupList', { ...(option || {}) });
   }
 
@@ -3716,7 +3716,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // }
    */
-  public async getStoremanGroupActivity(groupId: string, option: any): Promise<any> {
+  public async getStoremanGroupActivity(groupId: string, option?: any): Promise<any> {
     return await this._request('getStoremanGroupActivity', { groupId, ...(option || {}) });
   }
 
@@ -3756,7 +3756,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // {"groupId":"0x000000000000000000000000000000000000000000000000006465765f323631","status":"7","deposit":"1360409999999999999936800","depositWeight":"1506809999999999999905200","selectedCount":"29","memberCount":"29","whiteCount":"1","whiteCountAll":"10","startTime":"1764129600","endTime":"1764734400","registerTime":"1763957830","registerDuration":"779","memberCountDesign":"29","threshold":"21","chain1":"2153201998","chain2":"2147483708","curve1":"1","curve2":"0","tickedCount":"0","minStakeIn":"10000000000000000000000","minDelegateIn":"100000000000000000000","minPartIn":"10000000000000000000000","crossIncoming":"0","gpk1":"0x0bcf65cefe1f016f6578317be6ba72d37d4ff2b79430eec2ca35fd3413fa9ca420d50eedf68f78432982c09bd19043c41ccee1e018ffe5bd474ee535e110ab2f","gpk2":"0x1ac23caa6723194a943e257f294d14308d12055286a1ecb59fd46bcccb9ac56d9451ce3d5a17f3322ebb646f32b5e1823951615d8b32893b220eae27a3126022","delegateFee":"1000","algo1":"1","algo2":"0","gpk3":"0xacafdcc977e4672bf1252eb2d2ba96f8f97c6828c092b6b3dac17c7f2c991fdc4621506ce12f995a464405ad23f9a719cdc650be636ad60dd517a6dfaa7694dc","curve3":"0","algo3":"2"}
    */
-  public async getStoremanGroupInfo(groupId: string, option: any): Promise<any> {
+  public async getStoremanGroupInfo(groupId: string, option?: any): Promise<any> {
     return await this._request('getStoremanGroupInfo', { groupId, ...(option || {}) });
   }
 
@@ -3772,7 +3772,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // [{"groupId":"0x000000000000000000000000000000000000000000000000006465765f323631","status":"7","deposit":"1360409999999999999936800","depositWeight":"1506809999999999999905200","selectedCount":"29","memberCount":"29","whiteCount":"1","whiteCountAll":"10","startTime":"1764129600","endTime":"1764734400","registerTime":"1763957830","registerDuration":"779","memberCountDesign":"29","threshold":"21","chain1":"2153201998","chain2":"2147483708","curve1":"1","curve2":"0","tickedCount":"0","minStakeIn":"10000000000000000000000","minDelegateIn":"100000000000000000000","minPartIn":"10000000000000000000000","crossIncoming":"0","gpk1":"0x0bcf65cefe1f016f6578317be6ba72d37d4ff2b79430eec2ca35fd3413fa9ca420d50eedf68f78432982c09bd19043c41ccee1e018ffe5bd474ee535e110ab2f","gpk2":"0x1ac23caa6723194a943e257f294d14308d12055286a1ecb59fd46bcccb9ac56d9451ce3d5a17f3322ebb646f32b5e1823951615d8b32893b220eae27a3126022","delegateFee":"1000","algo1":"1","algo2":"0","gpk3":"0xacafdcc977e4672bf1252eb2d2ba96f8f97c6828c092b6b3dac17c7f2c991fdc4621506ce12f995a464405ad23f9a719cdc650be636ad60dd517a6dfaa7694dc","curve3":"0","algo3":"2"}]
    */
-  public async getMultiStoremanGroupInfo(groupId: Array<string>, option: any): Promise<Array<any>> {
+  public async getMultiStoremanGroupInfo(groupId: Array<string>, option?: any): Promise<Array<any>> {
     return await this._request('getMultiStoremanGroupInfo', { groupId, ...(option || {}) });
   }
 
@@ -3788,7 +3788,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // {"groupId":"0x000000000000000000000000000000000000000000000000006465765f323631","status":"7","deposit":"1360409999999999999936800","chain1":"2153201998","chain2":"2147483708","curve1":"1","curve2":"0","gpk1":"0x0bcf65cefe1f016f6578317be6ba72d37d4ff2b79430eec2ca35fd3413fa9ca420d50eedf68f78432982c09bd19043c41ccee1e018ffe5bd474ee535e110ab2f","gpk2":"0x1ac23caa6723194a943e257f294d14308d12055286a1ecb59fd46bcccb9ac56d9451ce3d5a17f3322ebb646f32b5e1823951615d8b32893b220eae27a3126022","startTime":"1764129600","endTime":"1764734400"}
    */
-  public async getStoremanGroupConfig(groupId: string, option: any): Promise<any> {
+  public async getStoremanGroupConfig(groupId: string, option?: any): Promise<any> {
     return await this._request('getStoremanGroupConfig', { groupId, ...(option || {}) });
   }
 
@@ -3804,7 +3804,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // {"sender":"0xAf840473fDd273fB1e3347F8e6e555cb8F2a240F","enodeID":"0x39c0251b5f6b8acf1458d14cb6a0c237fdc88460832c441b02b0fa3abb21dc7bbab2698e0800035bbf4e0c3c4c210f30ec400273a7ae985200bff2a7a8ad6972","PK":"0x20490b3a57ca48824c496307a5c8c8b23fed70b8304defd936200ff6d3efffa7bb8395ff73da3bdd4240f73d20c55e95dc0b3971595a652bb893fc7eca2eeb13","wkAddr":"0x13F5c27b1475a61A5fdEaF4e547D9611417c7375","isWhite":false,"quited":false,"delegatorCount":"2","delegateDeposit":"200000000000000000000","partnerCount":"0","partnerDeposit":"0","crossIncoming":"34482758620689655","slashedCount":"0","incentivedDelegator":"0","incentivedDay":"20531","groupId":"0x000000000000000000000000000000000000000000000000006465765f323737","nextGroupId":"0x0000000000000000000000000000000000000000000000000000000000000000","deposit":"10099999999999999998600","incentive":"3794897724406368827197","delegatorInCount":"1","delegateInDeposit":"100000000000000000000"}
    */
-  public async getStoremanInfo(wkAddr: string, option: any): Promise<any> {
+  public async getStoremanInfo(wkAddr: string, option?: any): Promise<any> {
     return await this._request('getStoremanInfo', { wkAddr, ...(option || {}) });
   }
 
@@ -3820,7 +3820,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // [{"sender":"0xAf840473fDd273fB1e3347F8e6e555cb8F2a240F","enodeID":"0x39c0251b5f6b8acf1458d14cb6a0c237fdc88460832c441b02b0fa3abb21dc7bbab2698e0800035bbf4e0c3c4c210f30ec400273a7ae985200bff2a7a8ad6972","PK":"0x20490b3a57ca48824c496307a5c8c8b23fed70b8304defd936200ff6d3efffa7bb8395ff73da3bdd4240f73d20c55e95dc0b3971595a652bb893fc7eca2eeb13","wkAddr":"0x13F5c27b1475a61A5fdEaF4e547D9611417c7375","isWhite":false,"quited":false,"delegatorCount":"2","delegateDeposit":"200000000000000000000","partnerCount":"0","partnerDeposit":"0","crossIncoming":"34482758620689655","slashedCount":"0","incentivedDelegator":"0","incentivedDay":"20531","groupId":"0x000000000000000000000000000000000000000000000000006465765f323737","nextGroupId":"0x0000000000000000000000000000000000000000000000000000000000000000","deposit":"10099999999999999998600","incentive":"3794897724406368827197","delegatorInCount":"1","delegateInDeposit":"100000000000000000000"}]
    */
-  public async getMultiStoremanInfo(wkAddr: Array<string>, option: any): Promise<Array<any>> {
+  public async getMultiStoremanInfo(wkAddr: Array<string>, option?: any): Promise<Array<any>> {
     return await this._request('getMultiStoremanInfo', { wkAddr, ...(option || {}) });
   }
 
@@ -3835,7 +3835,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // {"backupCount":"9","standaloneWeight":"15000","delegationMulti":"10"}
    */
-  public async getStoremanConf(option: any): Promise<object> {
+  public async getStoremanConf(option?: any): Promise<object> {
     return await this._request('getStoremanConf', { ...(option || {}) });
   }
 
@@ -3867,14 +3867,14 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getStoremanCandidates(groupId: string, option: any): Promise<Array<object>> {
+  public async getStoremanCandidates(groupId: string, option?: any): Promise<Array<object>> {
     return await this._request('getStoremanCandidates', { groupId, ...(option || {}) });
   }
 
   /**
   * @ignore
   */
-  public async getStoremanCandidatesV2(groupId: string, option: any): Promise<Array<object>> {
+  public async getStoremanCandidatesV2(groupId: string, option?: any): Promise<Array<object>> {
     return await this._request('getStoremanCandidatesV2', { groupId, ...(option || {}) });
   }
 
@@ -3883,7 +3883,7 @@ export default class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group CrossChainV2
    * @param {string} groupId - The storeman group ID being queried.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<Array<object>>} - The storeman member info.
    * @example
    * const ret = await sdk.getStoremanGroupMember("0x0000000000000000000000000000000000000000000031353938353934383939");
@@ -3911,14 +3911,14 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getStoremanGroupMember(groupId: string, option: any): Promise<Array<object>> {
+  public async getStoremanGroupMember(groupId: string, option?: any): Promise<Array<object>> {
     return await this._request('getStoremanGroupMember', { groupId, ...(option || {}) });
   }
 
   /**
   * @ignore
   */
-  public async getStoremanGroupMemberV2(groupId: string, option: any): Promise<Array<object>> {
+  public async getStoremanGroupMemberV2(groupId: string, option?: any): Promise<Array<object>> {
     return await this._request('getStoremanGroupMemberV2', { groupId, ...(option || {}) });
   }
 
@@ -3926,7 +3926,7 @@ export default class IwanClient extends EventEmitter {
    * Get the stake info of certain storeman.
    * @since 1.1.0
    * @group CrossChainV2
-   * @param {any} option - Optional:
+   * @param {any} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>address</code> - The array of storeman from address being queried.
    * <br>&nbsp;&nbsp;<code>wkAddr</code> - The string of storeman work address being queried.
    * <br>&nbsp;&nbsp;<code>groupId</code> - The string of storeman group ID being queried.
@@ -3936,7 +3936,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // [{"enodeID":"0x39c0251b5f6b8acf1458d14cb6a0c237fdc88460832c441b02b0fa3abb21dc7bbab2698e0800035bbf4e0c3c4c210f30ec400273a7ae985200bff2a7a8ad6972","PK":"0x20490b3a57ca48824c496307a5c8c8b23fed70b8304defd936200ff6d3efffa7bb8395ff73da3bdd4240f73d20c55e95dc0b3971595a652bb893fc7eca2eeb13","wkAddr":"0x13F5c27b1475a61A5fdEaF4e547D9611417c7375","isWhite":false,"quited":false,"delegatorCount":"2","delegateDeposit":"100000000000000000000","partnerCount":"0","partnerDeposit":"0","crossIncoming":"34482758620689655","slashedCount":"0","incentivedDelegator":"0","incentivedDay":"20531","groupId":"0x000000000000000000000000000000000000000000000000006465765f323737","nextGroupId":"0x0000000000000000000000000000000000000000000000000000000000000000","deposit":"10099999999999999998600","incentive":"3794897724406368827197","canStakeOut":true,"canStakeClaim":false,"selectedCount":29,"rank":19,"activity":1,"from":"0xAf840473fDd273fB1e3347F8e6e555cb8F2a240F"}]
    */
-  public async getStoremanStakeInfo(option: any): Promise<Array<object>> {
+  public async getStoremanStakeInfo(option?: any): Promise<Array<object>> {
     return await this._request('getStoremanStakeInfo', { ...(option || {}) });
   }
 
@@ -4066,7 +4066,7 @@ export default class IwanClient extends EventEmitter {
    * Get the info of all register tokenPairs, like fromChainID, toChainID, tokenAddress.
    * @since 1.1.0
    * @group TokensV2
-   * @param {any} option - Optional:
+   * @param {any} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>chainIds</code> - Optional, the array of two chain IDs of cross chain pair.
    * <br>&nbsp;&nbsp;<code>tags</code> - Optional, the array of tag of cross chain pair, should be in [<code>"desktop"</code>, <code>"bridge"</code>, <code>"bridgeBeta"</code>].
    * <br>&nbsp;&nbsp;<code>isAllTokenPairs</code> - Optional, the boolean flag of cross chain pair, using true to return all token pairs, include not yet online token pairs.
@@ -4100,7 +4100,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getTokenPairs(option: any): Promise<Array<object>> {
+  public async getTokenPairs(option?: any): Promise<Array<object>> {
     return await this._request('getTokenPairs', { ...(option || {}) });
   }
 
@@ -4109,7 +4109,7 @@ export default class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group TokensV2
    * @param {string} id - The ID of tokenPair being queried.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<object>} - The token pair infomation.
    * @example
    * const ret = await sdk.getTokenPairInfo("1"));
@@ -4135,7 +4135,7 @@ export default class IwanClient extends EventEmitter {
    * //   toAccountType: 'Erc20'
    * // }
    */
-  public async getTokenPairInfo(id: string, option: any): Promise<object> {
+  public async getTokenPairInfo(id: string, option?: any): Promise<object> {
     return await this._request('getTokenPairInfo', { id, ...(option || {}) });
   }
 
@@ -4144,7 +4144,7 @@ export default class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group TokensV2
    * @param {string} id - The ID of tokenPair being queried.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<object>} - The info of tokenPair Ancestor.
    * @example
    * const ret = await sdk.getTokenPairAncestorInfo("1"));
@@ -4157,7 +4157,7 @@ export default class IwanClient extends EventEmitter {
    * //   chainId: '2147483708'
    * // }
    */
-  public async getTokenPairAncestorInfo(id: string, option: any): Promise<object> {
+  public async getTokenPairAncestorInfo(id: string, option?: any): Promise<object> {
     return await this._request('getTokenPairAncestorInfo', { id, ...(option || {}) });
   }
 
@@ -4165,7 +4165,7 @@ export default class IwanClient extends EventEmitter {
    * Get all register tokenPairIDs.
    * @since 1.1.0
    * @group TokensV2
-   * @param {any} option - Optional:
+   * @param {any} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>chainIds</code> - Optional, the array of two chain IDs of cross chain pair.
    * @returns {Promise<Array<string>>} - The token pairs.
    * @example
@@ -4173,7 +4173,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // [ '1',   '2',   '3', ... ]
    */
-  public async getTokenPairIDs(option: any): Promise<Array<string>> {
+  public async getTokenPairIDs(option?: any): Promise<Array<string>> {
     return await this._request('getTokenPairIDs', { ...(option || {}) });
   }
 
@@ -4204,7 +4204,7 @@ export default class IwanClient extends EventEmitter {
    * Get the supported chain info.
    * @since 1.1.0
    * @group CrossChainV2
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<Array<object>>} - The supported chain info.
    * @example
    * const ret = await sdk.getSupportedChainInfo();
@@ -4224,7 +4224,7 @@ export default class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  public async getSupportedChainInfo(option: any): Promise<Array<object>> {
+  public async getSupportedChainInfo(option?: any): Promise<Array<object>> {
     return await this._request('getSupportedChainInfo', { ...(option || {}) });
   }
 
@@ -4330,14 +4330,14 @@ export default class IwanClient extends EventEmitter {
    * Get the reward ratio.
    * @since 1.1.0
    * @group CrossChainV2
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<string>} - The reward ratio.
    * @example
    * const ret = await sdk.getRewardRatio();
    * console.log(ret);
    * // "0.1000"
    */
-  public async getRewardRatio(option: any): Promise<string> {
+  public async getRewardRatio(option?: any): Promise<string> {
     return await this._request('getRewardRatio', { ...(option || {}) });
   }
 
@@ -4347,14 +4347,14 @@ export default class IwanClient extends EventEmitter {
    * @group CrossChainV2
    * @param {string} chainType - The chain being queried, should be <code>"ETH"</code>,  <code>"WAN"</code>, and other EVM chains.
    * @param {string} calls - The array of call data.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<any>} - The code at a specific address.
    * @example
    * const ret = await sdk.multiCall("XDC", [{"target":"0xd4b5f10d61916bd6e0860144a91ac658de8a1437","call":["symbol()(string)"],"returns":[["token_symbol"]]}]);
    * console.log(ret);
    * // {"results":{"blockNumber":{"_hex":"0x04c358f8"},"original":{"token_symbol":"USDT"},"transformed":{"token_symbol":"USDT"}},"keyToArgMap":{}}
    */
-  public async multiCall(chainType: string, calls: Array<object>, option: any): Promise<any> {
+  public async multiCall(chainType: string, calls: Array<object>, option?: any): Promise<any> {
     return await this._request('multiCall', { chainType, calls, ...(option || {}) });
   }
 
@@ -4364,7 +4364,7 @@ export default class IwanClient extends EventEmitter {
    * @group CrossChainV2
    * @param {string} chainType - The chain being queried, should be <code>"ETH"</code>,  <code>"WAN"</code>, and other EVM chains.
    * @param {string} calls - The array of call data.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<any>} - The code at a specific address.
    * @example
    * var targetInfo = [{
@@ -4379,7 +4379,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // [{"result":[{"token_symbol":"USDT"}],"status":[true]}]
    */
-  public async multiCall2(chainType: string, calls: Array<object>, option: any): Promise<any> {
+  public async multiCall2(chainType: string, calls: Array<object>, option?: any): Promise<any> {
     return await this._request('multiCall2', { chainType, calls, ...(option || {}) });
   }
 
@@ -4389,14 +4389,14 @@ export default class IwanClient extends EventEmitter {
    * @group CrossChainV2
    * @param {string} chainType - The chain being queried, should be <code>"ETH"</code>,  <code>"WAN"</code>, and other EVM chains.
    * @param {string} address - The account being queried.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<string>} - The code at a specific address.
    * @example
    * const ret = await sdk.getCode("WAN", "0x5543C66182209CDB5d3763a25990781853461610");
    * console.log(ret);
    * // "0x608060..."
    */
-  public async getCode(chainType: string, address: string, option: any): Promise<string> {
+  public async getCode(chainType: string, address: string, option?: any): Promise<string> {
     return await this._request('getCode', { chainType, address, ...(option || {}) });
   }
 
@@ -4406,7 +4406,7 @@ export default class IwanClient extends EventEmitter {
    * @group PrivateTrans
    * @param {string} chainType - The chain being queried. Currently supports <code>'BTC'</code>.
    * @param {string} feeType - The type of fee that you want to search, should be <code>"lock"</code> or <code>"release"</code>.
-   * @param {string} option - Optional:
+   * @param {string} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>target</code> - The numeric of confirmation target in blocks (1 - 1008), use 1 as default.
    * <br>&nbsp;&nbsp;<code>mode</code> - The string of fee estimate mode, use "CONSERVATIVE" as default.
    * <br>&nbsp;&nbsp;<code>feeRate</code> - The numeric of estimate fee rate.
@@ -4416,7 +4416,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // "16864"
    */
-  public async estimateNetworkFee(chainType: string, feeType: 'lock'|'release', option: any): Promise<string|number> {
+  public async estimateNetworkFee(chainType: string, feeType: 'lock'|'release', option?: any): Promise<string|number> {
     return await this._request('estimateNetworkFee', { chainType, feeType, ...(option || {}) });
   }
 
@@ -4425,14 +4425,14 @@ export default class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group Blocks
    * @param {string} chainType - The chain being queried. Currently supports <code>"XRP"</code>.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<string>} - The current latest ledger version.
    * @example
    * const ret = await sdk.getLedgerVersion("XRP");
    * console.log(ret);
    * // 15905577
    */
-  public async getLedgerVersion(chainType: string, option: any): Promise<string|number> {
+  public async getLedgerVersion(chainType: string, option?: any): Promise<string|number> {
     return await this._request('getLedgerVersion', { chainType, ...(option || {}) });
   }
 
@@ -4476,7 +4476,7 @@ export default class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group Blocks
    * @param {string} chainType - The chain being queried. Currently supports <code>"XRP"</code>.
-   * @param {string} option - Object:
+   * @param {string} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>version</code> - The result format version you want to search.
    * @returns {Promise<any>} - The server information.
    * @example
@@ -4550,7 +4550,7 @@ export default class IwanClient extends EventEmitter {
    * //   "validation_quorum": 5
    * // }
    */
-  public async getServerInfo(chainType: string, option: any): Promise<any> {
+  public async getServerInfo(chainType: string, option?: any): Promise<any> {
     return await this._request('getServerInfo', { chainType, ...(option || {}) });
   }
 
@@ -4580,14 +4580,14 @@ export default class IwanClient extends EventEmitter {
    * @group CrossChain
    * @param {string} crossChain - The destination chainType that you want to search.
    * @param {string} symbol - The symbol that you want to search.
-   * @param {string} option - A reserved parameter.
+   * @param {string} [option] - A reserved parameter.
    * @returns {Promise<object>} - The minimum cross-chain amount.
    * @example
    * const ret = await sdk.getMinCrossChainAmount("ETH", ["BTC"]);
    * console.log(ret);
    * // {"BTC":"100"}
    */
-  public async getMinCrossChainAmount(crossChain: string, symbol: string, option: any): Promise<object> {
+  public async getMinCrossChainAmount(crossChain: string, symbol: string, option?: any): Promise<object> {
     return await this._request('getMinCrossChainAmount', { crossChain, symbol, ...(option || {}) });
   }
 
@@ -4597,7 +4597,7 @@ export default class IwanClient extends EventEmitter {
    * @group CrossChain
    * @param {string} chainType - The chain being queried, should be <code>"ETH"</code>,  <code>"WAN"</code>, and other chains.
    * @param {string} targetChainType - The target chain being queried, should be <code>"ETH"</code>,  <code>"WAN"</code>, and other chains.
-   * @param {any} option - Optional:
+   * @param {any} option - Object:
    * <br>&nbsp;&nbsp;<code>tokenPairID</code> - The ID of token pair you want to search.
    * <br>&nbsp;&nbsp;<code>address</code> - The array of address being queried.
    * <br>&nbsp;&nbsp;<code>bridge</code> - The supported third-party bridge. Currently supports 'CCTPV1' and 'CCTPV2'.
@@ -4618,10 +4618,10 @@ export default class IwanClient extends EventEmitter {
    * @group CrossChain
    * @param {string} chainType - The chain being queried, should be <code>"ETH"</code>,  <code>"WAN"</code>, and other chains.
    * @param {string} targetChainType - The target chain being queried, should be <code>"ETH"</code>,  <code>"WAN"</code>, and other chains.
-   * @param {any} option - Optional:
+   * @param {any} option - Object:
    * <br>&nbsp;&nbsp;<code>tokenPairID</code> - The ID of token pair you want to search.
-   * <br>&nbsp;&nbsp;<code>address</code> - The array of address being queried.
-   * <br>&nbsp;&nbsp;<code>bridge</code> - The supported third-party bridge. Currently supports 'CCTPV1' and 'CCTPV2'.
+   * <br>&nbsp;&nbsp;<code>address</code> - Optional, the array of address being queried.
+   * <br>&nbsp;&nbsp;<code>bridge</code> - Optional, the supported third-party bridge. Currently supports 'CCTPV1' and 'CCTPV2'.
    * @returns {Promise<any>} - The network fee.
    * @example
    * const ret = await sdk.estimateCrossChainNetworkFee("ARETH", "OETH", {bridge: "CCTPV2", tokenPairID: "...", address:["0x1...","0x2..."]});
@@ -4637,7 +4637,7 @@ export default class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group Blocks
    * @param {string} chainType - The chain being queried, should be <code>"ADA"</code>,  and other chains.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<any>} - The latest block information.
    * @example
    * const ret = await sdk.getLatestBlock("ADA");
@@ -4660,7 +4660,7 @@ export default class IwanClient extends EventEmitter {
    * //   "confirmations": 0
    * // }
    */
-  public async getLatestBlock(chainType: string, option: any): Promise<any> {
+  public async getLatestBlock(chainType: string, option?: any): Promise<any> {
     return await this._request('getLatestBlock', { chainType, ...(option || {}) });
   }
 
@@ -4669,7 +4669,7 @@ export default class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>"ADA"</code>.
-   * @param {string} option - Optional:
+   * @param {string} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>epochID</code> - The ID of epoch you want to search.
    * @returns {Promise<any>} - The epoch parameters.
    * @example
@@ -4693,7 +4693,7 @@ export default class IwanClient extends EventEmitter {
    * //   "minFeeRefScriptCostPerByte": "15"
    * // }
    */
-  public async getEpochParameters(chainType: string, option: any): Promise<any> {
+  public async getEpochParameters(chainType: string, option?: any): Promise<any> {
     return await this._request('getEpochParameters', { chainType, ...(option || {}) });
   }
 
@@ -4702,7 +4702,7 @@ export default class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>"ADA"</code>.
-   * @param {string} option - Optional:
+   * @param {string} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>epochID</code> - The ID of epoch you want to search.
    * @returns {Promise<any>} - The epoch mofrl parameters.
    * @example
@@ -4710,7 +4710,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // {"minFeeCoefficient":44,"minFeeConstant":155381,"maxBlockBodySize":90112,"maxBlockHeaderSize":1100,"maxTxSize":16384,"stakeKeyDeposit":2000000,"poolDeposit":500000000,"poolRetirementEpochBound":18,"desiredNumberOfPools":500,"poolInfluence":"3/10","monetaryExpansion":"3/1000","treasuryExpansion":"1/5","protocolVersion":{"major":10,"minor":0},"minPoolCost":170000000,"coinsPerUtxoByte":4310,"prices":{"memory":"577/10000","steps":"721/10000000"},"maxExecutionUnitsPerTransaction":{"memory":16500000,"steps":10000000000},"maxExecutionUnitsPerBlock":{"memory":72000000,"steps":20000000000},"maxValueSize":5000,"collateralPercentage":150,"maxCollateralInputs":3,"range":25600,"minFeeRefScriptCostPerByte":15,"base":15,"multiplier":1.2,"costModels":{"PlutusV1":{"addInteger-cpu-arguments-intercept":100788,"addInteger-cpu-arguments-slope":420,"addInteger-memory-arguments-intercept":1,"addInteger-memory-arguments-slope":1,"appendByteString-cpu-arguments-intercept":1000,"appendByteString-cpu-arguments-slope":173,"appendByteString-memory-arguments-intercept":0,"appendByteString-memory-arguments-slope":1,"appendString-cpu-arguments-intercept":1000,"appendString-cpu-arguments-slope":59957,"appendString-memory-arguments-intercept":4,"appendString-memory-arguments-slope":1,"bData-cpu-arguments":11183,"bData-memory-arguments":32,"blake2b_256-cpu-arguments-intercept":201305,"blake2b_256-cpu-arguments-slope":8356,"blake2b_256-memory-arguments":4,"cekApplyCost-exBudgetCPU":16000,"cekApplyCost-exBudgetMemory":100,"cekBuiltinCost-exBudgetCPU":16000,"cekBuiltinCost-exBudgetMemory":100,"cekConstCost-exBudgetCPU":16000,"cekConstCost-exBudgetMemory":100,"cekDelayCost-exBudgetCPU":16000,"cekDelayCost-exBudgetMemory":100,"cekForceCost-exBudgetCPU":16000,"cekForceCost-exBudgetMemory":100,"cekLamCost-exBudgetCPU":16000,"cekLamCost-exBudgetMemory":100,"cekStartupCost-exBudgetCPU":100,"cekStartupCost-exBudgetMemory":100,"cekVarCost-exBudgetCPU":16000,"cekVarCost-exBudgetMemory":100,"chooseData-cpu-arguments":94375,"chooseData-memory-arguments":32,"chooseList-cpu-arguments":132994,"chooseList-memory-arguments":32,"chooseUnit-cpu-arguments":61462,"chooseUnit-memory-arguments":4,"consByteString-cpu-arguments-intercept":72010,"consByteString-cpu-arguments-slope":178,"consByteString-memory-arguments-intercept":0,"consByteString-memory-arguments-slope":1,"constrData-cpu-arguments":22151,"constrData-memory-arguments":32,"decodeUtf8-cpu-arguments-intercept":91189,"decodeUtf8-cpu-arguments-slope":769,"decodeUtf8-memory-arguments-intercept":4,"decodeUtf8-memory-arguments-slope":2,"divideInteger-cpu-arguments-constant":85848,"divideInteger-cpu-arguments-model-arguments-intercept":228465,"divideInteger-cpu-arguments-model-arguments-slope":122,"divideInteger-memory-arguments-intercept":0,"divideInteger-memory-arguments-minimum":1,"divideInteger-memory-arguments-slope":1,"encodeUtf8-cpu-arguments-intercept":1000,"encodeUtf8-cpu-arguments-slope":42921,"encodeUtf8-memory-arguments-intercept":4,"encodeUtf8-memory-arguments-slope":2,"equalsByteString-cpu-arguments-constant":24548,"equalsByteString-cpu-arguments-intercept":29498,"equalsByteString-cpu-arguments-slope":38,"equalsByteString-memory-arguments":1,"equalsData-cpu-arguments-intercept":898148,"equalsData-cpu-arguments-slope":27279,"equalsData-memory-arguments":1,"equalsInteger-cpu-arguments-intercept":51775,"equalsInteger-cpu-arguments-slope":558,"equalsInteger-memory-arguments":1,"equalsString-cpu-arguments-constant":39184,"equalsString-cpu-arguments-intercept":1000,"equalsString-cpu-arguments-slope":60594,"equalsString-memory-arguments":1,"fstPair-cpu-arguments":141895,"fstPair-memory-arguments":32,"headList-cpu-arguments":83150,"headList-memory-arguments":32,"iData-cpu-arguments":15299,"iData-memory-arguments":32,"ifThenElse-cpu-arguments":76049,"ifThenElse-memory-arguments":1,"indexByteString-cpu-arguments":13169,"indexByteString-memory-arguments":4,"lengthOfByteString-cpu-arguments":22100,"lengthOfByteString-memory-arguments":10,"lessThanByteString-cpu-arguments-intercept":28999,"lessThanByteString-cpu-arguments-slope":74,"lessThanByteString-memory-arguments":1,"lessThanEqualsByteString-cpu-arguments-intercept":28999,"lessThanEqualsByteString-cpu-arguments-slope":74,"lessThanEqualsByteString-memory-arguments":1,"lessThanEqualsInteger-cpu-arguments-intercept":43285,"lessThanEqualsInteger-cpu-arguments-slope":552,"lessThanEqualsInteger-memory-arguments":1,"lessThanInteger-cpu-arguments-intercept":44749,"lessThanInteger-cpu-arguments-slope":541,"lessThanInteger-memory-arguments":1,"listData-cpu-arguments":33852,"listData-memory-arguments":32,"mapData-cpu-arguments":68246,"mapData-memory-arguments":32,"mkCons-cpu-arguments":72362,"mkCons-memory-arguments":32,"mkNilData-cpu-arguments":7243,"mkNilData-memory-arguments":32,"mkNilPairData-cpu-arguments":7391,"mkNilPairData-memory-arguments":32,"mkPairData-cpu-arguments":11546,"mkPairData-memory-arguments":32,"modInteger-cpu-arguments-constant":85848,"modInteger-cpu-arguments-model-arguments-intercept":228465,"modInteger-cpu-arguments-model-arguments-slope":122,"modInteger-memory-arguments-intercept":0,"modInteger-memory-arguments-minimum":1,"modInteger-memory-arguments-slope":1,"multiplyInteger-cpu-arguments-intercept":90434,"multiplyInteger-cpu-arguments-slope":519,"multiplyInteger-memory-arguments-intercept":0,"multiplyInteger-memory-arguments-slope":1,"nullList-cpu-arguments":74433,"nullList-memory-arguments":32,"quotientInteger-cpu-arguments-constant":85848,"quotientInteger-cpu-arguments-model-arguments-intercept":228465,"quotientInteger-cpu-arguments-model-arguments-slope":122,"quotientInteger-memory-arguments-intercept":0,"quotientInteger-memory-arguments-minimum":1,"quotientInteger-memory-arguments-slope":1,"remainderInteger-cpu-arguments-constant":85848,"remainderInteger-cpu-arguments-model-arguments-intercept":228465,"remainderInteger-cpu-arguments-model-arguments-slope":122,"remainderInteger-memory-arguments-intercept":0,"remainderInteger-memory-arguments-minimum":1,"remainderInteger-memory-arguments-slope":1,"sha2_256-cpu-arguments-intercept":270652,"sha2_256-cpu-arguments-slope":22588,"sha2_256-memory-arguments":4,"sha3_256-cpu-arguments-intercept":1457325,"sha3_256-cpu-arguments-slope":64566,"sha3_256-memory-arguments":4,"sliceByteString-cpu-arguments-intercept":20467,"sliceByteString-cpu-arguments-slope":1,"sliceByteString-memory-arguments-intercept":4,"sliceByteString-memory-arguments-slope":0,"sndPair-cpu-arguments":141992,"sndPair-memory-arguments":32,"subtractInteger-cpu-arguments-intercept":100788,"subtractInteger-cpu-arguments-slope":420,"subtractInteger-memory-arguments-intercept":1,"subtractInteger-memory-arguments-slope":1,"tailList-cpu-arguments":81663,"tailList-memory-arguments":32,"trace-cpu-arguments":59498,"trace-memory-arguments":32,"unBData-cpu-arguments":20142,"unBData-memory-arguments":32,"unConstrData-cpu-arguments":24588,"unConstrData-memory-arguments":32,"unIData-cpu-arguments":20744,"unIData-memory-arguments":32,"unListData-cpu-arguments":25933,"unListData-memory-arguments":32,"unMapData-cpu-arguments":24623,"unMapData-memory-arguments":32,"verifyEd25519Signature-cpu-arguments-intercept":53384111,"verifyEd25519Signature-cpu-arguments-slope":14333,"verifyEd25519Signature-memory-arguments":10},"PlutusV2":{"addInteger-cpu-arguments-intercept":100788,"addInteger-cpu-arguments-slope":420,"addInteger-memory-arguments-intercept":1,"addInteger-memory-arguments-slope":1,"appendByteString-cpu-arguments-intercept":1000,"appendByteString-cpu-arguments-slope":173,"appendByteString-memory-arguments-intercept":0,"appendByteString-memory-arguments-slope":1,"appendString-cpu-arguments-intercept":1000,"appendString-cpu-arguments-slope":59957,"appendString-memory-arguments-intercept":4,"appendString-memory-arguments-slope":1,"bData-cpu-arguments":11183,"bData-memory-arguments":32,"blake2b_256-cpu-arguments-intercept":201305,"blake2b_256-cpu-arguments-slope":8356,"blake2b_256-memory-arguments":4,"cekApplyCost-exBudgetCPU":16000,"cekApplyCost-exBudgetMemory":100,"cekBuiltinCost-exBudgetCPU":16000,"cekBuiltinCost-exBudgetMemory":100,"cekConstCost-exBudgetCPU":16000,"cekConstCost-exBudgetMemory":100,"cekDelayCost-exBudgetCPU":16000,"cekDelayCost-exBudgetMemory":100,"cekForceCost-exBudgetCPU":16000,"cekForceCost-exBudgetMemory":100,"cekLamCost-exBudgetCPU":16000,"cekLamCost-exBudgetMemory":100,"cekStartupCost-exBudgetCPU":100,"cekStartupCost-exBudgetMemory":100,"cekVarCost-exBudgetCPU":16000,"cekVarCost-exBudgetMemory":100,"chooseData-cpu-arguments":94375,"chooseData-memory-arguments":32,"chooseList-cpu-arguments":132994,"chooseList-memory-arguments":32,"chooseUnit-cpu-arguments":61462,"chooseUnit-memory-arguments":4,"consByteString-cpu-arguments-intercept":72010,"consByteString-cpu-arguments-slope":178,"consByteString-memory-arguments-intercept":0,"consByteString-memory-arguments-slope":1,"constrData-cpu-arguments":22151,"constrData-memory-arguments":32,"decodeUtf8-cpu-arguments-intercept":91189,"decodeUtf8-cpu-arguments-slope":769,"decodeUtf8-memory-arguments-intercept":4,"decodeUtf8-memory-arguments-slope":2,"divideInteger-cpu-arguments-constant":85848,"divideInteger-cpu-arguments-model-arguments-intercept":228465,"divideInteger-cpu-arguments-model-arguments-slope":122,"divideInteger-memory-arguments-intercept":0,"divideInteger-memory-arguments-minimum":1,"divideInteger-memory-arguments-slope":1,"encodeUtf8-cpu-arguments-intercept":1000,"encodeUtf8-cpu-arguments-slope":42921,"encodeUtf8-memory-arguments-intercept":4,"encodeUtf8-memory-arguments-slope":2,"equalsByteString-cpu-arguments-constant":24548,"equalsByteString-cpu-arguments-intercept":29498,"equalsByteString-cpu-arguments-slope":38,"equalsByteString-memory-arguments":1,"equalsData-cpu-arguments-intercept":898148,"equalsData-cpu-arguments-slope":27279,"equalsData-memory-arguments":1,"equalsInteger-cpu-arguments-intercept":51775,"equalsInteger-cpu-arguments-slope":558,"equalsInteger-memory-arguments":1,"equalsString-cpu-arguments-constant":39184,"equalsString-cpu-arguments-intercept":1000,"equalsString-cpu-arguments-slope":60594,"equalsString-memory-arguments":1,"fstPair-cpu-arguments":141895,"fstPair-memory-arguments":32,"headList-cpu-arguments":83150,"headList-memory-arguments":32,"iData-cpu-arguments":15299,"iData-memory-arguments":32,"ifThenElse-cpu-arguments":76049,"ifThenElse-memory-arguments":1,"indexByteString-cpu-arguments":13169,"indexByteString-memory-arguments":4,"lengthOfByteString-cpu-arguments":22100,"lengthOfByteString-memory-arguments":10,"lessThanByteString-cpu-arguments-intercept":28999,"lessThanByteString-cpu-arguments-slope":74,"lessThanByteString-memory-arguments":1,"lessThanEqualsByteString-cpu-arguments-intercept":28999,"lessThanEqualsByteString-cpu-arguments-slope":74,"lessThanEqualsByteString-memory-arguments":1,"lessThanEqualsInteger-cpu-arguments-intercept":43285,"lessThanEqualsInteger-cpu-arguments-slope":552,"lessThanEqualsInteger-memory-arguments":1,"lessThanInteger-cpu-arguments-intercept":44749,"lessThanInteger-cpu-arguments-slope":541,"lessThanInteger-memory-arguments":1,"listData-cpu-arguments":33852,"listData-memory-arguments":32,"mapData-cpu-arguments":68246,"mapData-memory-arguments":32,"mkCons-cpu-arguments":72362,"mkCons-memory-arguments":32,"mkNilData-cpu-arguments":7243,"mkNilData-memory-arguments":32,"mkNilPairData-cpu-arguments":7391,"mkNilPairData-memory-arguments":32,"mkPairData-cpu-arguments":11546,"mkPairData-memory-arguments":32,"modInteger-cpu-arguments-constant":85848,"modInteger-cpu-arguments-model-arguments-intercept":228465,"modInteger-cpu-arguments-model-arguments-slope":122,"modInteger-memory-arguments-intercept":0,"modInteger-memory-arguments-minimum":1,"modInteger-memory-arguments-slope":1,"multiplyInteger-cpu-arguments-intercept":90434,"multiplyInteger-cpu-arguments-slope":519,"multiplyInteger-memory-arguments-intercept":0,"multiplyInteger-memory-arguments-slope":1,"nullList-cpu-arguments":74433,"nullList-memory-arguments":32,"quotientInteger-cpu-arguments-constant":85848,"quotientInteger-cpu-arguments-model-arguments-intercept":228465,"quotientInteger-cpu-arguments-model-arguments-slope":122,"quotientInteger-memory-arguments-intercept":0,"quotientInteger-memory-arguments-minimum":1,"quotientInteger-memory-arguments-slope":1,"remainderInteger-cpu-arguments-constant":85848,"remainderInteger-cpu-arguments-model-arguments-intercept":228465,"remainderInteger-cpu-arguments-model-arguments-slope":122,"remainderInteger-memory-arguments-intercept":0,"remainderInteger-memory-arguments-minimum":1,"remainderInteger-memory-arguments-slope":1,"serialiseData-cpu-arguments-intercept":955506,"serialiseData-cpu-arguments-slope":213312,"serialiseData-memory-arguments-intercept":0,"serialiseData-memory-arguments-slope":2,"sha2_256-cpu-arguments-intercept":270652,"sha2_256-cpu-arguments-slope":22588,"sha2_256-memory-arguments":4,"sha3_256-cpu-arguments-intercept":1457325,"sha3_256-cpu-arguments-slope":64566,"sha3_256-memory-arguments":4,"sliceByteString-cpu-arguments-intercept":20467,"sliceByteString-cpu-arguments-slope":1,"sliceByteString-memory-arguments-intercept":4,"sliceByteString-memory-arguments-slope":0,"sndPair-cpu-arguments":141992,"sndPair-memory-arguments":32,"subtractInteger-cpu-arguments-intercept":100788,"subtractInteger-cpu-arguments-slope":420,"subtractInteger-memory-arguments-intercept":1,"subtractInteger-memory-arguments-slope":1,"tailList-cpu-arguments":81663,"tailList-memory-arguments":32,"trace-cpu-arguments":59498,"trace-memory-arguments":32,"unBData-cpu-arguments":20142,"unBData-memory-arguments":32,"unConstrData-cpu-arguments":24588,"unConstrData-memory-arguments":32,"unIData-cpu-arguments":20744,"unIData-memory-arguments":32,"unListData-cpu-arguments":25933,"unListData-memory-arguments":32,"unMapData-cpu-arguments":24623,"unMapData-memory-arguments":32,"verifyEcdsaSecp256k1Signature-cpu-arguments":43053543,"verifyEcdsaSecp256k1Signature-memory-arguments":10,"verifyEd25519Signature-cpu-arguments-intercept":53384111,"verifyEd25519Signature-cpu-arguments-slope":14333,"verifyEd25519Signature-memory-arguments":10,"verifySchnorrSecp256k1Signature-cpu-arguments-intercept":43574283,"verifySchnorrSecp256k1Signature-cpu-arguments-slope":26308,"verifySchnorrSecp256k1Signature-memory-arguments":10},"PlutusV3":{"addInteger-cpu-arguments-intercept":100788,"addInteger-cpu-arguments-slope":420,"addInteger-memory-arguments-intercept":1,"addInteger-memory-arguments-slope":1,"appendByteString-cpu-arguments-intercept":1000,"appendByteString-cpu-arguments-slope":173,"appendByteString-memory-arguments-intercept":0,"appendByteString-memory-arguments-slope":1,"appendString-cpu-arguments-intercept":1000,"appendString-cpu-arguments-slope":59957,"appendString-memory-arguments-intercept":4,"appendString-memory-arguments-slope":1,"bData-cpu-arguments":11183,"bData-memory-arguments":32,"blake2b_256-cpu-arguments-intercept":201305,"blake2b_256-cpu-arguments-slope":8356,"blake2b_256-memory-arguments":4,"cekApplyCost-exBudgetCPU":16000,"cekApplyCost-exBudgetMemory":100,"cekBuiltinCost-exBudgetCPU":16000,"cekBuiltinCost-exBudgetMemory":100,"cekConstCost-exBudgetCPU":16000,"cekConstCost-exBudgetMemory":100,"cekDelayCost-exBudgetCPU":16000,"cekDelayCost-exBudgetMemory":100,"cekForceCost-exBudgetCPU":16000,"cekForceCost-exBudgetMemory":100,"cekLamCost-exBudgetCPU":16000,"cekLamCost-exBudgetMemory":100,"cekStartupCost-exBudgetCPU":100,"cekStartupCost-exBudgetMemory":100,"cekVarCost-exBudgetCPU":16000,"cekVarCost-exBudgetMemory":100,"chooseData-cpu-arguments":94375,"chooseData-memory-arguments":32,"chooseList-cpu-arguments":132994,"chooseList-memory-arguments":32,"chooseUnit-cpu-arguments":61462,"chooseUnit-memory-arguments":4,"consByteString-cpu-arguments-intercept":72010,"consByteString-cpu-arguments-slope":178,"consByteString-memory-arguments-intercept":0,"consByteString-memory-arguments-slope":1,"constrData-cpu-arguments":22151,"constrData-memory-arguments":32,"decodeUtf8-cpu-arguments-intercept":91189,"decodeUtf8-cpu-arguments-slope":769,"decodeUtf8-memory-arguments-intercept":4,"decodeUtf8-memory-arguments-slope":2,"divideInteger-cpu-arguments-constant":85848,"divideInteger-cpu-arguments-model-arguments-c00":123203,"divideInteger-cpu-arguments-model-arguments-c01":7305,"divideInteger-cpu-arguments-model-arguments-c02":-900,"divideInteger-cpu-arguments-model-arguments-c10":1716,"divideInteger-cpu-arguments-model-arguments-c11":549,"divideInteger-cpu-arguments-model-arguments-c20":57,"divideInteger-cpu-arguments-model-arguments-minimum":85848,"divideInteger-memory-arguments-intercept":0,"divideInteger-memory-arguments-minimum":1,"divideInteger-memory-arguments-slope":1,"encodeUtf8-cpu-arguments-intercept":1000,"encodeUtf8-cpu-arguments-slope":42921,"encodeUtf8-memory-arguments-intercept":4,"encodeUtf8-memory-arguments-slope":2,"equalsByteString-cpu-arguments-constant":24548,"equalsByteString-cpu-arguments-intercept":29498,"equalsByteString-cpu-arguments-slope":38,"equalsByteString-memory-arguments":1,"equalsData-cpu-arguments-intercept":898148,"equalsData-cpu-arguments-slope":27279,"equalsData-memory-arguments":1,"equalsInteger-cpu-arguments-intercept":51775,"equalsInteger-cpu-arguments-slope":558,"equalsInteger-memory-arguments":1,"equalsString-cpu-arguments-constant":39184,"equalsString-cpu-arguments-intercept":1000,"equalsString-cpu-arguments-slope":60594,"equalsString-memory-arguments":1,"fstPair-cpu-arguments":141895,"fstPair-memory-arguments":32,"headList-cpu-arguments":83150,"headList-memory-arguments":32,"iData-cpu-arguments":15299,"iData-memory-arguments":32,"ifThenElse-cpu-arguments":76049,"ifThenElse-memory-arguments":1,"indexByteString-cpu-arguments":13169,"indexByteString-memory-arguments":4,"lengthOfByteString-cpu-arguments":22100,"lengthOfByteString-memory-arguments":10,"lessThanByteString-cpu-arguments-intercept":28999,"lessThanByteString-cpu-arguments-slope":74,"lessThanByteString-memory-arguments":1,"lessThanEqualsByteString-cpu-arguments-intercept":28999,"lessThanEqualsByteString-cpu-arguments-slope":74,"lessThanEqualsByteString-memory-arguments":1,"lessThanEqualsInteger-cpu-arguments-intercept":43285,"lessThanEqualsInteger-cpu-arguments-slope":552,"lessThanEqualsInteger-memory-arguments":1,"lessThanInteger-cpu-arguments-intercept":44749,"lessThanInteger-cpu-arguments-slope":541,"lessThanInteger-memory-arguments":1,"listData-cpu-arguments":33852,"listData-memory-arguments":32,"mapData-cpu-arguments":68246,"mapData-memory-arguments":32,"mkCons-cpu-arguments":72362,"mkCons-memory-arguments":32,"mkNilData-cpu-arguments":7243,"mkNilData-memory-arguments":32,"mkNilPairData-cpu-arguments":7391,"mkNilPairData-memory-arguments":32,"mkPairData-cpu-arguments":11546,"mkPairData-memory-arguments":32,"modInteger-cpu-arguments-constant":85848,"modInteger-cpu-arguments-model-arguments-c00":123203,"modInteger-cpu-arguments-model-arguments-c01":7305,"modInteger-cpu-arguments-model-arguments-c02":-900,"modInteger-cpu-arguments-model-arguments-c10":1716,"modInteger-cpu-arguments-model-arguments-c11":549,"modInteger-cpu-arguments-model-arguments-c20":57,"modInteger-cpu-arguments-model-arguments-minimum":85848,"modInteger-memory-arguments-intercept":0,"modInteger-memory-arguments-slope":1,"multiplyInteger-cpu-arguments-intercept":90434,"multiplyInteger-cpu-arguments-slope":519,"multiplyInteger-memory-arguments-intercept":0,"multiplyInteger-memory-arguments-slope":1,"nullList-cpu-arguments":74433,"nullList-memory-arguments":32,"quotientInteger-cpu-arguments-constant":85848,"quotientInteger-cpu-arguments-model-arguments-c00":123203,"quotientInteger-cpu-arguments-model-arguments-c01":7305,"quotientInteger-cpu-arguments-model-arguments-c02":-900,"quotientInteger-cpu-arguments-model-arguments-c10":1716,"quotientInteger-cpu-arguments-model-arguments-c11":549,"quotientInteger-cpu-arguments-model-arguments-c20":57,"quotientInteger-cpu-arguments-model-arguments-minimum":85848,"quotientInteger-memory-arguments-intercept":0,"quotientInteger-memory-arguments-slope":1,"remainderInteger-cpu-arguments-constant":1,"remainderInteger-cpu-arguments-model-arguments-c00":85848,"remainderInteger-cpu-arguments-model-arguments-c01":123203,"remainderInteger-cpu-arguments-model-arguments-c02":7305,"remainderInteger-cpu-arguments-model-arguments-c10":-900,"remainderInteger-cpu-arguments-model-arguments-c11":1716,"remainderInteger-cpu-arguments-model-arguments-c20":549,"remainderInteger-cpu-arguments-model-arguments-minimum":57,"remainderInteger-memory-arguments-intercept":85848,"remainderInteger-memory-arguments-minimum":0,"remainderInteger-memory-arguments-slope":1,"serialiseData-cpu-arguments-intercept":955506,"serialiseData-cpu-arguments-slope":213312,"serialiseData-memory-arguments-intercept":0,"serialiseData-memory-arguments-slope":2,"sha2_256-cpu-arguments-intercept":270652,"sha2_256-cpu-arguments-slope":22588,"sha2_256-memory-arguments":4,"sha3_256-cpu-arguments-intercept":1457325,"sha3_256-cpu-arguments-slope":64566,"sha3_256-memory-arguments":4,"sliceByteString-cpu-arguments-intercept":20467,"sliceByteString-cpu-arguments-slope":1,"sliceByteString-memory-arguments-intercept":4,"sliceByteString-memory-arguments-slope":0,"sndPair-cpu-arguments":141992,"sndPair-memory-arguments":32,"subtractInteger-cpu-arguments-intercept":100788,"subtractInteger-cpu-arguments-slope":420,"subtractInteger-memory-arguments-intercept":1,"subtractInteger-memory-arguments-slope":1,"tailList-cpu-arguments":81663,"tailList-memory-arguments":32,"trace-cpu-arguments":59498,"trace-memory-arguments":32,"unBData-cpu-arguments":20142,"unBData-memory-arguments":32,"unConstrData-cpu-arguments":24588,"unConstrData-memory-arguments":32,"unIData-cpu-arguments":20744,"unIData-memory-arguments":32,"unListData-cpu-arguments":25933,"unListData-memory-arguments":32,"unMapData-cpu-arguments":24623,"unMapData-memory-arguments":32,"verifyEcdsaSecp256k1Signature-cpu-arguments":43053543,"verifyEcdsaSecp256k1Signature-memory-arguments":10,"verifyEd25519Signature-cpu-arguments-intercept":53384111,"verifyEd25519Signature-cpu-arguments-slope":14333,"verifyEd25519Signature-memory-arguments":10,"verifySchnorrSecp256k1Signature-cpu-arguments-intercept":43574283,"verifySchnorrSecp256k1Signature-cpu-arguments-slope":26308,"verifySchnorrSecp256k1Signature-memory-arguments":10,"cekConstrCost-exBudgetCPU":16000,"cekConstrCost-exBudgetMemory":100,"cekCaseCost-exBudgetCPU":16000,"cekCaseCost-exBudgetMemory":100,"bls12_381_G1_add-cpu-arguments":962335,"bls12_381_G1_add-memory-arguments":18,"bls12_381_G1_compress-cpu-arguments":2780678,"bls12_381_G1_compress-memory-arguments":6,"bls12_381_G1_equal-cpu-arguments":442008,"bls12_381_G1_equal-memory-arguments":1,"bls12_381_G1_hashToGroup-cpu-arguments-intercept":52538055,"bls12_381_G1_hashToGroup-cpu-arguments-slope":3756,"bls12_381_G1_hashToGroup-memory-arguments":18,"bls12_381_G1_neg-cpu-arguments":267929,"bls12_381_G1_neg-memory-arguments":18,"bls12_381_G1_scalarMul-cpu-arguments-intercept":76433006,"bls12_381_G1_scalarMul-cpu-arguments-slope":8868,"bls12_381_G1_scalarMul-memory-arguments":18,"bls12_381_G1_uncompress-cpu-arguments":52948122,"bls12_381_G1_uncompress-memory-arguments":18,"bls12_381_G2_add-cpu-arguments":1995836,"bls12_381_G2_add-memory-arguments":36,"bls12_381_G2_compress-cpu-arguments":3227919,"bls12_381_G2_compress-memory-arguments":12,"bls12_381_G2_equal-cpu-arguments":901022,"bls12_381_G2_equal-memory-arguments":1,"bls12_381_G2_hashToGroup-cpu-arguments-intercept":166917843,"bls12_381_G2_hashToGroup-cpu-arguments-slope":4307,"bls12_381_G2_hashToGroup-memory-arguments":36,"bls12_381_G2_neg-cpu-arguments":284546,"bls12_381_G2_neg-memory-arguments":36,"bls12_381_G2_scalarMul-cpu-arguments-intercept":158221314,"bls12_381_G2_scalarMul-cpu-arguments-slope":26549,"bls12_381_G2_scalarMul-memory-arguments":36,"bls12_381_G2_uncompress-cpu-arguments":74698472,"bls12_381_G2_uncompress-memory-arguments":36,"bls12_381_finalVerify-cpu-arguments":333849714,"bls12_381_finalVerify-memory-arguments":1,"bls12_381_millerLoop-cpu-arguments":254006273,"bls12_381_millerLoop-memory-arguments":72,"bls12_381_mulMlResult-cpu-arguments":2174038,"bls12_381_mulMlResult-memory-arguments":72,"keccak_256-cpu-arguments-intercept":2261318,"keccak_256-cpu-arguments-slope":64571,"keccak_256-memory-arguments":4,"blake2b_224-cpu-arguments-intercept":207616,"blake2b_224-cpu-arguments-slope":8310,"blake2b_224-memory-arguments":4,"integerToByteString-cpu-arguments-c0":1293828,"integerToByteString-cpu-arguments-c1":28716,"integerToByteString-cpu-arguments-c2":63,"integerToByteString-memory-arguments-intercept":0,"integerToByteString-memory-arguments-slope":1,"byteStringToInteger-cpu-arguments-c0":1006041,"byteStringToInteger-cpu-arguments-c1":43623,"byteStringToInteger-cpu-arguments-c2":251,"byteStringToInteger-memory-arguments-intercept":0,"byteStringToInteger-memory-arguments-slope":1}}}
    */
-  public async getCostModelParameters(chainType: string, option: any): Promise<any> {
+  public async getCostModelParameters(chainType: string, option?: any): Promise<any> {
     return await this._request('getCostModelParameters', { chainType, ...(option || {}) });
   }
 
@@ -4718,14 +4718,14 @@ export default class IwanClient extends EventEmitter {
    * Get token pairs hash.
    * @since 1.1.0
    * @group CrossChainV2
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<string>} - The token pairs hash.
    * @example
    * const ret = await sdk.getTokenPairsHash();
    * console.log(ret);
    * // "352bef4b54d176c31520d89a148c4b38"
    */
-  public async getTokenPairsHash(option: any): Promise<string> {
+  public async getTokenPairsHash(option?: any): Promise<string> {
     return await this._request('getTokenPairsHash', { ...(option || {}) });
   }
 
@@ -4735,7 +4735,7 @@ export default class IwanClient extends EventEmitter {
    * @group XRP
    * @param {string} chainType - The chain being queried. Currently supports <code>'XRP'</code>.
    * @param {string} address - The Address to check. This should be the issuing address.
-   * @param {string} option - Optional:
+   * @param {string} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>excludeAddresses</code> - Optional, the array of addresses to exclude from the balances issued.
    * @returns {Promise<any>} - The total balances issued by a given account.
    * @example
@@ -4743,7 +4743,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // {"account":"rLZGBrdXNvS1RPjjJB7Z4FeA4w5Hggtt7t","ledger_hash":"16452CB42D4CC620541CB343195146D2C0E447ECD60A30E4034727799ECBD0DC","ledger_index":15906583,"validated":true}
    */
-  public async getGateWayBalances(chainType: string, address: string, option: any): Promise<any> {
+  public async getGateWayBalances(chainType: string, address: string, option?: any): Promise<any> {
     return await this._request('getGateWayBalances', { chainType, address, ...(option || {}) });
   }
 
@@ -4753,7 +4753,7 @@ export default class IwanClient extends EventEmitter {
    * @group XRP
    * @param {string} chainType - The chain being queried. Currently supports <code>'XRP'</code>.
    * @param {string} address - A unique identifier for the account, most commonly the account's Address.
-   * @param {string} option - Optional:
+   * @param {string} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>peer</code> - Optional, the Address of a second account. If provided, show only lines of trust connecting the two accounts.
    * <br>&nbsp;&nbsp;<code>ledgerVersion</code> - Optional, the ledger version of the ledger to use.
    * @returns {Promise<Array<object>>} - The infomation of account's trust lines.
@@ -4762,7 +4762,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // [{"account":"rnqc3LJgN6E2Ern7G4tdciihoFtcatm7FX","balance":"1000000000","currency":"BAR","limit":"1000000000","limit_peer":"0","quality_in":0,"quality_out":0},{"account":"rh1FqPEZ4AvptV6vXr3WUgPHCgpkS2nb9G","balance":"0","currency":"FOO","limit":"100000","limit_peer":"0","no_ripple_peer":true,"quality_in":0,"quality_out":0}]
    */
-  public async getTrustLines(chainType: string, address: string, option: any): Promise<Array<object>> {
+  public async getTrustLines(chainType: string, address: string, option?: any): Promise<Array<object>> {
     return await this._request('getTrustLines', { chainType, address, ...(option || {}) });
   }
 
@@ -4788,14 +4788,14 @@ export default class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group CrossChainV2
    * @param {Array<string>} address - The Array of address you want to check.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<boolean>} - The token pairs hash.
    * @example
    * const ret = await sdk.hasHackerAccount(["0x..."]);
    * console.log(ret);
    * // false
    */
-  public async hasHackerAccount(address: Array<string>, option: any): Promise<boolean> {
+  public async hasHackerAccount(address: Array<string>, option?: any): Promise<boolean> {
     return await this._request('hasHackerAccount', { address, ...(option || {}) });
   }
 
@@ -4804,14 +4804,14 @@ export default class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group Contracts
    * @param {string} chainType - The chain being queried. Currently supports <code>'TRX'</code>.
-   * @param {any} option - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<Array<object>>} - The parameters.
    * @example
    * const ret = await sdk.getChainParameters("TRX");
    * console.log(ret);
    * // [{"key":"getMaintenanceTimeInterval","value":1800000},{"key":"getAccountUpgradeCost","value":9999000000},{"key":"getCreateAccountFee","value":100000},{"key":"getTransactionFee","value":1000},{"key":"getAssetIssueFee","value":1024000000},{"key":"getWitnessPayPerBlock","value":8000000},{"key":"getWitnessStandbyAllowance","value":100000000},{"key":"getCreateNewAccountFeeInSystemContract","value":1000000},{"key":"getCreateNewAccountBandwidthRate","value":1},{"key":"getAllowCreationOfContracts","value":1},{"key":"getRemoveThePowerOfTheGr","value":-1},{"key":"getEnergyFee","value":100},{"key":"getExchangeCreateFee","value":1024000000},{"key":"getMaxCpuTimeOfOneTx","value":160},{"key":"getAllowUpdateAccountName"},{"key":"getAllowSameTokenName","value":1},{"key":"getAllowDelegateResource","value":1},{"key":"getTotalEnergyLimit","value":180000000000},{"key":"getAllowTvmTransferTrc10","value":1},{"key":"getTotalEnergyCurrentLimit","value":180000000000},{"key":"getAllowMultiSign","value":1},{"key":"getAllowAdaptiveEnergy"},{"key":"getTotalEnergyTargetLimit","value":12500000},{"key":"getTotalEnergyAverageUsage"},{"key":"getUpdateAccountPermissionFee","value":100000000},{"key":"getMultiSignFee","value":1000000},{"key":"getAllowAccountStateRoot"},{"key":"getAllowProtoFilterNum"},{"key":"getAllowTvmConstantinople","value":1},{"key":"getAllowTvmSolidity059","value":1},{"key":"getAllowTvmIstanbul","value":1},{"key":"getAllowShieldedTRC20Transaction","value":1},{"key":"getForbidTransferToContract"},{"key":"getAdaptiveResourceLimitTargetRatio","value":10},{"key":"getAdaptiveResourceLimitMultiplier","value":1000},{"key":"getChangeDelegation","value":1},{"key":"getWitness127PayPerBlock","value":128000000},{"key":"getAllowMarketTransaction"},{"key":"getMarketSellFee"},{"key":"getMarketCancelFee"},{"key":"getAllowPBFT","value":1},{"key":"getAllowTransactionFeePool"},{"key":"getMaxFeeLimit","value":15000000000},{"key":"getAllowOptimizeBlackHole","value":1},{"key":"getAllowNewResourceModel"},{"key":"getAllowTvmFreeze","value":1},{"key":"getAllowTvmVote","value":1},{"key":"getAllowTvmLondon","value":1},{"key":"getAllowTvmCompatibleEvm"},{"key":"getAllowAccountAssetOptimization"},{"key":"getFreeNetLimit","value":600},{"key":"getTotalNetLimit","value":43200000000},{"key":"getAllowHigherLimitForMaxCpuTimeOfOneTx","value":1},{"key":"getAllowAssetOptimization","value":1},{"key":"getAllowNewReward","value":1},{"key":"getMemoFee","value":1000000},{"key":"getAllowDelegateOptimization","value":1},{"key":"getUnfreezeDelayDays","value":1},{"key":"getAllowOptimizedReturnValueOfChainId","value":1},{"key":"getAllowDynamicEnergy","value":1},{"key":"getDynamicEnergyThreshold","value":5000000000},{"key":"getDynamicEnergyIncreaseFactor","value":2000},{"key":"getDynamicEnergyMaxFactor","value":34000},{"key":"getAllowTvmShangHai","value":1},{"key":"getAllowCancelAllUnfreezeV2","value":1},{"key":"getMaxDelegateLockPeriod","value":144000},{"key":"getAllowOldRewardOpt","value":1},{"key":"getAllowEnergyAdjustment","value":1},{"key":"getMaxCreateAccountTxSize","value":1000},{"key":"getAllowStrictMath","value":1},{"key":"getConsensusLogicOptimization","value":1},{"key":"getAllowTvmCancun","value":1},{"key":"getAllowTvmBlob","value":1},{"key":"getAllowTvmSelfdestructRestriction","value":1},{"key":"getProposalExpireTime","value":600000}]
    */
-  public async getChainParameters(chainType: string, option: any): Promise<Array<object>> {
+  public async getChainParameters(chainType: string, option?: any): Promise<Array<object>> {
     return await this._request('getChainParameters', { chainType, ...(option || {}) });
   }
 
@@ -4820,7 +4820,7 @@ export default class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group CrossChainV2
    * @deprecated use {@link getChainQuotaHiddenFlagDirectionally} instead.
-   * @param {string} option - Optional:
+   * @param {string} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>chainIds</code> -  Array of chain IDs about the cross chain pair.
    * @returns {Promise<object>} - The cross chain quota hidden flags.
    * @example
@@ -4828,7 +4828,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // {}
    */
-  public async getChainQuotaHiddenFlags(option: any): Promise<object> {
+  public async getChainQuotaHiddenFlags(option?: any): Promise<object> {
     return await this._request('getChainQuotaHiddenFlags', { ...(option || {}) });
   }
 
@@ -4836,7 +4836,7 @@ export default class IwanClient extends EventEmitter {
    * Get cross chain quota hidden flags.
    * @since 1.1.0
    * @group CrossChainV2
-   * @param {string} option - Optional:
+   * @param {string} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>chainIds</code> -  Array of chain bip44 IDs about the cross chain pair.
    * @returns {Promise<object>} - The cross chain quota hidden flags.
    * @example
@@ -4844,7 +4844,7 @@ export default class IwanClient extends EventEmitter {
    * console.log(ret);
    * // {"2153201998":{"hiddenSourceChainQuota":false,"hiddenTargetChainQuota":false}}
    */
-  public async getChainQuotaHiddenFlagDirectionally(option: any): Promise<object> {
+  public async getChainQuotaHiddenFlagDirectionally(option?: any): Promise<object> {
     return await this._request('getChainQuotaHiddenFlagDirectionally', { ...(option || {}) });
   }
 
@@ -4852,7 +4852,7 @@ export default class IwanClient extends EventEmitter {
    * Get discount info.
    * @since 1.1.0
    * @group CrossChainV2
-   * @param {string} option - A reserved parameter.
+   * @param {string} [option] - A reserved parameter.
    * @returns {Promise<Array<object>>} - The discount info.
    * @example
    * const ret = await sdk.getWanBridgeDiscounts();
@@ -4884,7 +4884,7 @@ export default class IwanClient extends EventEmitter {
    * //   }
    * // ]
    */
-  public async getWanBridgeDiscounts(option: any): Promise<Array<object>> {
+  public async getWanBridgeDiscounts(option?: any): Promise<Array<object>> {
     return await this._request('getWanBridgeDiscounts', { ...(option || {}) });
   }
 
