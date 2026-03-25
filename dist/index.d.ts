@@ -157,7 +157,7 @@ declare class IwanClient extends EventEmitter {
    * await sdk.close();
    */
   close(): Promise<void>;
-  private checkHash;
+  private checkByte32Hash;
   /**
    * Generic RPC call (supports ALL iWan methods)
    * @since 1.1.0
@@ -976,7 +976,7 @@ declare class IwanClient extends EventEmitter {
    * //   "signatures": []
    * // }
    */
-  packTransaction(chainType: string, tx: object, option?: any): Promise<any>;
+  packTransaction(chainType: string, tx: any, option?: any): Promise<any>;
   /**
    * Get the specific public parameter value of one contract on certain chain.
    * @since 1.1.0
@@ -1151,7 +1151,7 @@ declare class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group PrivateTrans
    * @param {string} chainType - The chain being queried, should be <code>"ETH"</code>,  <code>"WAN"</code>, and other EVM chains.
-   * @param {object} tx - The transaction object see eth.sendTransaction, with the difference that for calls the from property is optional as well.
+   * @param {any} tx - The transaction object see eth.sendTransaction, with the difference that for calls the from property is optional as well.
    * @param {any} [option] - A reserved parameter.
    * @returns {Promise<number|string>} - The estimated gas.
    * @example
@@ -1159,7 +1159,7 @@ declare class IwanClient extends EventEmitter {
    * console.log(ret);
    * // 21000
    */
-  estimateGas(chainType: string, tx: object, option?: any): Promise<number | string>;
+  estimateGas(chainType: string, tx: any, option?: any): Promise<number | string>;
   /**
    * Returns an object containing various details about the blockchain.
    * @since 1.1.0
@@ -1306,7 +1306,7 @@ declare class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group EOS
    * @param {string} chainType - The chain being queried. Currently supports <code>'EOS'</code>.
-   * @param {object} txArgs - Optional, transaction arguments.
+   * @param {any} txArgs - Optional, transaction arguments.
    * <br>&nbsp;&nbsp;<code>expiration</code> - required string (DateTime) ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}$ Time that transaction must be confirmed by.
    * <br>&nbsp;&nbsp;<code>ref_block_num</code> - required integer.
    * <br>&nbsp;&nbsp;<code>ref_block_prefix</code> - required integer.
@@ -1323,7 +1323,7 @@ declare class IwanClient extends EventEmitter {
    * console.log(ret);
    * // ['PUB_K1_69X3383RzBZj41k73CSjUNXM5MYGpnDxyPnWUKPEtYQmVzqTY7']
    */
-  getRequiredKeys(chainType: string, txArgs: object, option?: any): Promise<Array<string>>;
+  getRequiredKeys(chainType: string, txArgs: any, option?: any): Promise<Array<string>>;
   /**
    * Retrieves raw code and ABI for a contract based on account name.
    * @since 1.1.0
@@ -2559,7 +2559,7 @@ declare class IwanClient extends EventEmitter {
    * @group Service
    * @param {string|Array<string>|undefined} [tokenOrigAccount] - The original token account of chain.
    * @param {number|undefined} [after] - The timestamp after you want to search.
-   * @returns {Promise<Array<object>>} - The records of registered tokens information.
+   * @returns {Promise<Array<any>>} - The records of registered tokens information.
    * @example
    * const ret = await sdk.getRegisteredValidator();
    * console.log(ret);
@@ -2580,7 +2580,7 @@ declare class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  getRegisteredToken(tokenOrigAccount?: string, after?: number): Promise<Array<object>>;
+  getRegisteredToken(tokenOrigAccount?: string, after?: number): Promise<Array<any>>;
   /**
    * Get records of registered Dapps information.
    * @since 1.1.0
@@ -2594,7 +2594,7 @@ declare class IwanClient extends EventEmitter {
    * <br>&nbsp;&nbsp;<code>after</code> - The timestamp after you want to search.
    * <br>&nbsp;&nbsp;<code>pageIndex</code> - The page index you want to search. If you want to query with the <code>pageIndex</code>, <code>page</code> is needed.
    * <br>&nbsp;&nbsp;<code>page</code> - The page size you want to search.
-   * @returns {Promise<Array<object>>} - The records of registered Dapps information.
+   * @returns {Promise<Array<any>>} - The records of registered Dapps information.
    * @example
    * const ret = await sdk.getRegisteredDapp({after:1577155812700, platform:["desktop"]});
    * console.log(ret);
@@ -2624,7 +2624,7 @@ declare class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  getRegisteredDapp(option?: any): Promise<Array<object>>;
+  getRegisteredDapp(option?: any): Promise<Array<any>>;
   /**
    * Get records of registered advertisements information.
    * @since 1.1.0
@@ -2632,7 +2632,7 @@ declare class IwanClient extends EventEmitter {
    * @param {any} [option] - Optional.
    * <br>&nbsp;&nbsp;<code>name</code> - The advertisement name you want to search.
    * <br>&nbsp;&nbsp;<code>after</code> - The timestamp after you want to search.
-   * @returns {Promise<Array<object>>} - The records of registered advertisements information.
+   * @returns {Promise<Array<any>>} - The records of registered advertisements information.
    * @example
    * const ret = await sdk.getRegisteredAds();
    * console.log(ret);
@@ -2647,7 +2647,7 @@ declare class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  getRegisteredAds(option?: any): Promise<Array<object>>;
+  getRegisteredAds(option?: any): Promise<Array<any>>;
   /**
    * Get records of registered coingecko information.
    * @since 1.1.0
@@ -2655,7 +2655,7 @@ declare class IwanClient extends EventEmitter {
    * @param {any} [option] - Optional.
    * <br>&nbsp;&nbsp;<code>symbol</code> - The array of coingecko symbol you want to search.
    * <br>&nbsp;&nbsp;<code>after</code> - The timestamp after you want to search.
-   * @returns {Promise<Array<object>>} - The records of registered coingecko information.
+   * @returns {Promise<Array<any>>} - The records of registered coingecko information.
    * @example
    * const ret = await sdk.getRegisteredCoinGecko({symbol:["wan"]});
    * console.log(ret);
@@ -2669,20 +2669,20 @@ declare class IwanClient extends EventEmitter {
    * //    ... ...
    * // ]
    */
-  getRegisteredCoinGecko(option?: any): Promise<Array<object>>;
+  getRegisteredCoinGecko(option?: any): Promise<Array<any>>;
   /**
    * Returns the epoch ID and block number when the switch from POW to the POS protocol occurred.
    * @since 1.1.0
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {any} [option] - A reserved parameter
-   * @returns {Promise<object>} - The POS info.
+   * @returns {Promise<any>} - The POS info.
    * @example
    * const ret = await sdk.getPosInfo("WAN");
    * console.log(ret);
    * // { "firstBlockNumber": 3560000, "firstEpochId": 18078 }
    */
-  getPosInfo(chainType: string, option?: any): Promise<object>;
+  getPosInfo(chainType: string, option?: any): Promise<any>;
   /**
    * Get the highest block number of the specified epoch ID(s).
    * @since 1.1.0
@@ -2690,13 +2690,13 @@ declare class IwanClient extends EventEmitter {
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {number} epochID - The epochID you want to search.
    * @param {any} [option] - A reserved parameter
-   * @returns {Promise<Array<object>>} - The the highest block number.
+   * @returns {Promise<Array<any>>} - The the highest block number.
    * @example
    * const ret = await sdk.getMaxBlockNumber("WAN", [18102, 18101]);
    * console.log(ret);
    * // [ { "epochId": 18102, "blockNumber": 3938057, }, { "epochId": 18101, "blockNumber": 3933152, } ]
    */
-  getMaxBlockNumber(chainType: string, epochID: number, option?: any): Promise<Array<object>>;
+  getMaxBlockNumber(chainType: string, epochID: number, option?: any): Promise<Array<any>>;
   /**
    * Get supplementary information for the specified validator.
    * @since 1.1.0
@@ -2704,7 +2704,7 @@ declare class IwanClient extends EventEmitter {
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {string|Array<string>} address - The validator address you want to search.
    * @param {any} [option] - A reserved parameter
-   * @returns {Promise<Array<object>>} - The supplementary information.
+   * @returns {Promise<Array<any>>} - The supplementary information.
    * @example
    * const ret = await sdk.getValidatorSupStakeInfo("WAN", ["0x158bae682e6278a16d09d7c7311074585d38b54d","0x85dae7e5c7b433a1682c54eee63adf63d835d272"]);
    * console.log(ret);
@@ -2721,7 +2721,7 @@ declare class IwanClient extends EventEmitter {
    * //     }
    * // ]
    */
-  getValidatorSupStakeInfo(chainType: string, address: string | Array<string>, option?: any): Promise<Array<object>>;
+  getValidatorSupStakeInfo(chainType: string, address: string | Array<string>, option?: any): Promise<Array<any>>;
   /**
    * Get the specified delegator's supplementary information.
    * @since 1.1.0
@@ -2729,7 +2729,7 @@ declare class IwanClient extends EventEmitter {
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {string|Array<string>} address - The delegator's address you want to query.
    * @param {any} [option] - A reserved parameter.
-   * @returns {Promise<Array<object>>} - The supplementary information.
+   * @returns {Promise<Array<any>>} - The supplementary information.
    * @example
    * const ret = await sdk.getDelegatorSupStakeInfo("WAN", ["0xc45089dfcf6308d80b377b0a6ffc8bd314273ce0"]);
    * console.log(ret);
@@ -2749,7 +2749,7 @@ declare class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  getDelegatorSupStakeInfo(chainType: string, address: string | Array<string>, option?: any): Promise<Array<object>>;
+  getDelegatorSupStakeInfo(chainType: string, address: string | Array<string>, option?: any): Promise<Array<any>>;
   /**
    * Get the block number which contains the incentives transactions for the specified epoch.
    * @since 1.1.0
@@ -2771,7 +2771,7 @@ declare class IwanClient extends EventEmitter {
    * @param {string} chainType - The chain being queried. Currently supports <code>'WAN'</code>, default: <code>'WAN'</code>.
    * @param {number} epochID - The epochID you want to search.
    * @param {any} [option] - A reserved parameter.
-   * @returns {Promise<Array<object>>} - The record of stake out infomation.
+   * @returns {Promise<Array<any>>} - The record of stake out infomation.
    * @example
    * const ret = await sdk.getEpochStakeOut("WAN", 18106);
    * console.log(ret);
@@ -2783,7 +2783,7 @@ declare class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  getEpochStakeOut(chainType: string, epochID: number, option?: any): Promise<Array<object>>;
+  getEpochStakeOut(chainType: string, epochID: number, option?: any): Promise<Array<any>>;
   /**
    * Check whether the OTA address is used.
    * @since 1.1.0
@@ -2806,13 +2806,13 @@ declare class IwanClient extends EventEmitter {
    * @param {string} funcName - The service URI.
    * @param {string} type - The http request method as string. Currently supports <code>'GET'</code> and <code>'POST'</code>.
    * @param {any} [option] - A reserved parameter.
-   * @returns {Promise<object>} - The service infomation.
+   * @returns {Promise<any>} - The service infomation.
    * @example
    * const ret = await sdk.fetchService("bp", "getAddress", "POST", {});
    * console.log(ret);
    * // { "name": "test", "address":"0x3786038ef9c2f659772c6c2ee8402bdfdc511bb5" }
    */
-  fetchService(srvType: string, funcName: string, type: string, option?: any): Promise<object>;
+  fetchService(srvType: string, funcName: string, type: string, option?: any): Promise<any>;
   /**
    * Fetch the special service API by the native http.
    * @since 1.1.0
@@ -2820,13 +2820,13 @@ declare class IwanClient extends EventEmitter {
    * @param {string} url - The special service request url absolutely.
    * @param {string} type - The http request method as string. Currently supports <code>'GET'</code> and <code>'POST'</code>.
    * @param {any} [option] - The arguments passing to service API.
-   * @returns {Promise<object>} - The service infomation.
+   * @returns {Promise<any>} - The service infomation.
    * @example
    * const ret = await sdk.fetchSpecialService("https://xxx.com:443/getAddress", "POST", {});
    * console.log(ret);
    * // { "name": "test", "address":"0x3786038ef9c2f659772c6c2ee8402bdfdc511bb5" }
    */
-  fetchSpecialService(url: string, type: string, option?: any): Promise<object>;
+  fetchSpecialService(url: string, type: string, option?: any): Promise<any>;
   /**
    * Get records of registered tokens information of original chain.
    * @since 1.1.0
@@ -2843,7 +2843,7 @@ declare class IwanClient extends EventEmitter {
    * Set to <code>false</code> (the default) to return the default token logo.
    * <br>&nbsp;&nbsp;&nbsp;&nbsp;
    * Set to <code>true</code> to return all token type logo.
-   * @returns {Promise<Array<object>>} - The records of registered tokens information
+   * @returns {Promise<Array<any>>} - The records of registered tokens information
    * @example
    * const ret = await sdk.getRegisteredOrigToken("WAN", {after:1577155812700});
    * console.log(ret);
@@ -2857,7 +2857,7 @@ declare class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  getRegisteredOrigToken(chainType: string, option?: any): Promise<Array<object>>;
+  getRegisteredOrigToken(chainType: string, option?: any): Promise<Array<any>>;
   /**
    * Get records of registered token's logo of specified chain.
    * @since 1.1.0
@@ -2874,7 +2874,7 @@ declare class IwanClient extends EventEmitter {
    * Set to <code>false</code> (the default) to return the default token logo.
    * <br>&nbsp;&nbsp;&nbsp;&nbsp;
    * Set to <code>true</code> to return all token type logo.
-   * @returns {Promise<Array<object>>} - The records of registered token's logo
+   * @returns {Promise<Array<any>>} - The records of registered token's logo
    * @example
    * const ret = await sdk.getRegisteredTokenLogo("WAN", {after:1577155812700});
    * console.log(ret);
@@ -2888,7 +2888,7 @@ declare class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  getRegisteredTokenLogo(chainType: string, option?: any): Promise<Array<object>>;
+  getRegisteredTokenLogo(chainType: string, option?: any): Promise<Array<any>>;
   /**
    * Get records of registered chain logo.
    * @since 1.1.0
@@ -2902,7 +2902,7 @@ declare class IwanClient extends EventEmitter {
    * Set to <code>false</code> (the default) to return the default token logo.
    * <br>&nbsp;&nbsp;&nbsp;&nbsp;
    * Set to <code>true</code> to return all token type logo.
-   * @returns {Promise<Array<object>>} The records of registered chain logo.
+   * @returns {Promise<Array<any>>} The records of registered chain logo.
    * @example
    * const ret = await sdk.getRegisteredChainLogo({chainType:"WAN", after:1577155812700});
    * console.log(ret);
@@ -2916,7 +2916,7 @@ declare class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  getRegisteredChainLogo(option?: any): Promise<Array<object>>;
+  getRegisteredChainLogo(option?: any): Promise<Array<any>>;
   /**
    * Get records of registered cross-chain token of multi-chain asset.
    * @since 1.1.0
@@ -2924,7 +2924,7 @@ declare class IwanClient extends EventEmitter {
    * @param {any} [option] - Optional.
    * <br>&nbsp;&nbsp;<code>chainType</code> - The chainType you want to search.
    * <br>&nbsp;&nbsp;<code>symbol</code> - The symbol you want to search.
-   * @returns {Promise<Array<object>>} - The records of registered cross-chain token.
+   * @returns {Promise<Array<any>>} - The records of registered cross-chain token.
    * @example
    * const ret = await sdk.getRegisteredMultiChainOrigToken({chainType:"ETH"});
    * console.log(ret);
@@ -2936,7 +2936,7 @@ declare class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  getRegisteredMultiChainOrigToken(option?: any): Promise<Array<object>>;
+  getRegisteredMultiChainOrigToken(option?: any): Promise<Array<any>>;
   /**
    * Get records of registered mapping tokens information of shadow chain.
    * @since 1.1.0
@@ -2947,7 +2947,7 @@ declare class IwanClient extends EventEmitter {
    * <br>&nbsp;&nbsp;<code>after</code> - The timestamp after you want to search.
    * <br>&nbsp;&nbsp;<code>pageIndex</code> - The page index you want to search. If you want to query with the <code>pageIndex</code>, <code>page</code> is needed.
    * <br>&nbsp;&nbsp;<code>page</code> - The page size you want to search.
-   * @returns {Promise<Array<object>>} - The records of registered mapping tokens information.
+   * @returns {Promise<Array<any>>} - The records of registered mapping tokens information.
    * @example
    * const ret = await sdk.getRegisteredMapToken("WAN", {after:1577155812700});
    * console.log(ret);
@@ -2961,7 +2961,7 @@ declare class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  getRegisteredMapToken(chainType: string, option?: any): Promise<Array<object>>;
+  getRegisteredMapToken(chainType: string, option?: any): Promise<Array<any>>;
   /**
    * Get records of registered subgraph info.
    * @since 1.1.0
@@ -2969,7 +2969,7 @@ declare class IwanClient extends EventEmitter {
    * @param {any} [option] - Optional.
    * <br>&nbsp;&nbsp;<code>chainType</code> - The chainType you want to search.
    * <br>&nbsp;&nbsp;<code>keywords</code> - The keywords you want to search.
-   * @returns {Promise<Array<object>>} - The records of registered subgraph info.
+   * @returns {Promise<Array<any>>} - The records of registered subgraph info.
    * @example
    * const ret = await sdk.getRegisteredSubgraph({chainType:"ETH", keywords:["0x..."]});
    * console.log(ret);
@@ -2982,7 +2982,7 @@ declare class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  getRegisteredSubgraph(option?: any): Promise<Array<object>>;
+  getRegisteredSubgraph(option?: any): Promise<Array<any>>;
   /**
    * Get records of registered token issuer info.
    * @since 1.1.0
@@ -2990,13 +2990,13 @@ declare class IwanClient extends EventEmitter {
    * @param {any} [option] - Optional.
    * <br>&nbsp;&nbsp;<code>chainType</code> - The chainType you want to search.
    * <br>&nbsp;&nbsp;<code>tokenScAddr</code> - The tokenScAddr you want to search.
-   * @returns {Promise<Array<object>>} - The records of registered token issuer info.
+   * @returns {Promise<Array<any>>} - The records of registered token issuer info.
    * @example
    * const ret = await sdk.getRegisteredTokenIssuer({chainType:"ETH", tokenScAddr:"0x0000000000000000000000000000000000000000"});
    * console.log(ret);
    * // [{"chainType":"ETH","isNativeCoin":true,"issuer":"Ethereum","tokenScAddr":"0x0000000000000000000000000000000000000000","tokenType":"erc20","updatedAt":1680000764477}]
    */
-  getRegisteredTokenIssuer(option?: any): Promise<Array<object>>;
+  getRegisteredTokenIssuer(option?: any): Promise<Array<any>>;
   /**
    * Get records of registered token list info.
    * @since 1.1.0
@@ -3005,20 +3005,20 @@ declare class IwanClient extends EventEmitter {
    * <br>&nbsp;&nbsp;<code>chainType</code> - The chainType you want to search.
    * <br>&nbsp;&nbsp;<code>tags</code> - The array of tag you want to search.
    * <br>&nbsp;&nbsp;<code>tokenTypes</code> - The array of token type you want to search.
-   * @returns {Promise<Array<object>>} - The records of registered token list info.
+   * @returns {Promise<Array<any>>} - The records of registered token list info.
    * @example
    * const ret = await sdk.getRegisteredTokenList({chainType:"ETH", tags:["desktop"], tokenTypes:["erc20"]});
    * console.log(ret);
    * // [{"groupTag":"ETH","address":"0x0000000000000000000000000000000000000000","name":"ethereum","symbol":"ETH","decimals":"18","tokenType":"erc20","chainType":"ETH"},{"groupTag":"WAN","address":"0xdd22d37d976648071277306fbf4883cb21ea86c6","name":"WAN@ethereum","symbol":"WAN","decimals":"18","tokenType":"erc20","chainType":"ETH"},...]
    */
-  getRegisteredTokenList(option?: any): Promise<Array<object>>;
+  getRegisteredTokenList(option?: any): Promise<Array<any>>;
   /**
    * Get all the active storemanGroups, include the info like the groupid, etc.
    * @since 1.1.0
    * @group CrossChainV2
    * @param {any} [option] - Optional.
    * <br>&nbsp;&nbsp;<code>chainIds</code> -  Array of chain IDs about the cross chain pair.
-   * @returns {Promise<Array<object>>} - The storeman group active information.
+   * @returns {Promise<Array<any>>} - The storeman group active information.
    * @example
    * const ret = await sdk.getStoremanGroupList();
    * console.log(ret);
@@ -3071,7 +3071,7 @@ declare class IwanClient extends EventEmitter {
    * //     ... ...
    * // ]
    */
-  getStoremanGroupList(option?: any): Promise<Array<object>>;
+  getStoremanGroupList(option?: any): Promise<Array<any>>;
   /**
    * Get the storeman group active information.
    * @since 1.1.0
@@ -3100,26 +3100,26 @@ declare class IwanClient extends EventEmitter {
    * @param {string} chainType - The from chain being queried, default: <code>'WAN'</code>.
    * @param {string} groupId - The storeman group ID.
    * @param {Array<string>} symbol - The array of symbol being queried.
-   * @param {object} option - Object:
+   * @param {any} option - Object:
    * <br>&nbsp;&nbsp;<code>targetChainType</code> - The target chain being queried.
    * <br>&nbsp;&nbsp;<code>ignoreReservation</code> - Optional. Whether to ignore the reservation quota:
    * <br>&nbsp;&nbsp;&nbsp;&nbsp;
    * Set to <code>false</code> (the default) to return the quota that deducts the reserved amount.
    * <br>&nbsp;&nbsp;&nbsp;&nbsp;
    * Set to <code>true</code> to return the quota without deducting the reservation amount.
-   * @returns {Promise<Array<object>>} - The storeman group quota information.
+   * @returns {Promise<Array<any>>} - The storeman group quota information.
    * @example
    * const ret = await sdk.getStoremanInfo("0x13F5c27b1475a61A5fdEaF4e547D9611417c7375");
    * console.log(ret);
    * // [ { "symbol": "BTC", "minQuota": "2", "maxQuota": "3312485144" } ]
    */
-  getStoremanGroupQuota(chainType: string, groupId: string, symbol: Array<string>, option: object): Promise<Array<object>>;
+  getStoremanGroupQuota(chainType: string, groupId: string, symbol: Array<string>, option: any): Promise<Array<any>>;
   /**
    * Get the detail info of one certain storemanGroup, include the info like the deposit, memberCount etc.
    * @since 1.1.0
    * @group CrossChainV2
    * @param {string} groupId - The storeman group ID.
-   * @param {object} [option] - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<any>} - The detail info of one certain storemanGroup.
    * @example
    * const ret = await sdk.getStoremanGroupInfo("0x000000000000000000000000000000000000000000000000006465765f323631");
@@ -3132,7 +3132,7 @@ declare class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group CrossChainV2
    * @param {Array<string>} groupId - The Array of storeman group ID.
-   * @param {object} [option] - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<Array<any>>} - The detail info of multi-storemanGroup.
    * @example
    * const ret = await sdk.getMultiStoremanGroupInfo(["0x000000000000000000000000000000000000000000000000006465765f323631"]);
@@ -3145,7 +3145,7 @@ declare class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group CrossChainV2
    * @param {string} groupId - The storeman group ID.
-   * @param {object} [option] - A reserved parameter.
+   * @param {any} [option] - A reserved parameter.
    * @returns {Promise<any>} - The detail config of one certain storemanGroup.
    * @example
    * const ret = await sdk.getStoremanGroupConfig("0x000000000000000000000000000000000000000000000000006465765f323631");
@@ -3184,20 +3184,20 @@ declare class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group CrossChainV2
    * @param {any} [option] - A reserved parameter
-   * @returns {Promise<object>} - The conf info.
+   * @returns {Promise<any>} - The conf info.
    * @example
    * const ret = await sdk.getStoremanConf();
    * console.log(ret);
    * // {"backupCount":"9","standaloneWeight":"15000","delegationMulti":"10"}
    */
-  getStoremanConf(option?: any): Promise<object>;
+  getStoremanConf(option?: any): Promise<any>;
   /**
    * Get the storeman candidates info of one certain storeman group.
    * @since 1.1.0
    * @group CrossChainV2
    * @param {string} groupId - The storeman group ID.
    * @param {any} [option] - A reserved parameter
-   * @returns {Promise<Arr<object>>} - The storeman candidates info.
+   * @returns {Promise<Arr<any>>} - The storeman candidates info.
    * @example
    * const ret = await sdk.getStoremanCandidates("0x0000000000000000000000000000000000000000000000003133323936333039");
    * console.log(ret);
@@ -3219,18 +3219,18 @@ declare class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  getStoremanCandidates(groupId: string, option?: any): Promise<Array<object>>;
+  getStoremanCandidates(groupId: string, option?: any): Promise<Array<any>>;
   /**
   * @ignore
   */
-  getStoremanCandidatesV2(groupId: string, option?: any): Promise<Array<object>>;
+  getStoremanCandidatesV2(groupId: string, option?: any): Promise<Array<any>>;
   /**
    * Get the storeman member info of one certain storeman group.
    * @since 1.1.0
    * @group CrossChainV2
    * @param {string} groupId - The storeman group ID being queried.
    * @param {any} [option] - A reserved parameter.
-   * @returns {Promise<Array<object>>} - The storeman member info.
+   * @returns {Promise<Array<any>>} - The storeman member info.
    * @example
    * const ret = await sdk.getStoremanGroupMember("0x0000000000000000000000000000000000000000000031353938353934383939");
    * console.log(ret);
@@ -3257,11 +3257,11 @@ declare class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  getStoremanGroupMember(groupId: string, option?: any): Promise<Array<object>>;
+  getStoremanGroupMember(groupId: string, option?: any): Promise<Array<any>>;
   /**
   * @ignore
   */
-  getStoremanGroupMemberV2(groupId: string, option?: any): Promise<Array<object>>;
+  getStoremanGroupMemberV2(groupId: string, option?: any): Promise<Array<any>>;
   /**
    * Get the stake info of certain storeman.
    * @since 1.1.0
@@ -3270,13 +3270,13 @@ declare class IwanClient extends EventEmitter {
    * <br>&nbsp;&nbsp;<code>address</code> - The array of storeman from address being queried.
    * <br>&nbsp;&nbsp;<code>wkAddr</code> - The string of storeman work address being queried.
    * <br>&nbsp;&nbsp;<code>groupId</code> - The string of storeman group ID being queried.
-   * @returns {Promise<Array<object>>} - The stake info.
+   * @returns {Promise<Array<any>>} - The stake info.
    * @example
    * const ret = await sdk.getSupportedChainInfo();
    * console.log(ret);
    * // [{"enodeID":"0x39c0251b5f6b8acf1458d14cb6a0c237fdc88460832c441b02b0fa3abb21dc7bbab2698e0800035bbf4e0c3c4c210f30ec400273a7ae985200bff2a7a8ad6972","PK":"0x20490b3a57ca48824c496307a5c8c8b23fed70b8304defd936200ff6d3efffa7bb8395ff73da3bdd4240f73d20c55e95dc0b3971595a652bb893fc7eca2eeb13","wkAddr":"0x13F5c27b1475a61A5fdEaF4e547D9611417c7375","isWhite":false,"quited":false,"delegatorCount":"2","delegateDeposit":"100000000000000000000","partnerCount":"0","partnerDeposit":"0","crossIncoming":"34482758620689655","slashedCount":"0","incentivedDelegator":"0","incentivedDay":"20531","groupId":"0x000000000000000000000000000000000000000000000000006465765f323737","nextGroupId":"0x0000000000000000000000000000000000000000000000000000000000000000","deposit":"10099999999999999998600","incentive":"3794897724406368827197","canStakeOut":true,"canStakeClaim":false,"selectedCount":29,"rank":19,"activity":1,"from":"0xAf840473fDd273fB1e3347F8e6e555cb8F2a240F"}]
    */
-  getStoremanStakeInfo(option?: any): Promise<Array<object>>;
+  getStoremanStakeInfo(option?: any): Promise<Array<any>>;
   /**
    * Get the total incentive info of certain storeman stake.
    * @since 1.1.0
@@ -3287,13 +3287,13 @@ declare class IwanClient extends EventEmitter {
    * <br>&nbsp;&nbsp;<code>groupId</code> - Optional, the string of storeman group ID being queried.
    * <br>&nbsp;&nbsp;<code>fromBlock</code> - Optional, the number of the earliest block (latest may be given to mean the most recent, block). By default 0.
    * <br>&nbsp;&nbsp;<code>toBlock</code> - Optional, the number of the latest block (latest may be given to mean the most recent, block). By default latest.
-   * @returns {Promise<Array<object>>} - The total incentive info.
+   * @returns {Promise<Array<any>>} - The total incentive info.
    * @example
    * const ret = await sdk.getStoremanStakeTotalIncentive({wkAddr: "0xe1e90b389ACB31c4C16aC5a2b5BBfFA927823c69"});
    * console.log(ret);
    * // [{"wkAddr":"0xe1e90b389ACB31c4C16aC5a2b5BBfFA927823c69","amount":"0","from":"0x0F02ac5D6015521b4fC33eE45Dce87870489781b","timestamp":1602319385},{"wkAddr":"0x2bbCf2f1F8F0BB3dC2E68dEcc292836E91f1BDF1","amount":"14444518831464769629339","from":"0x0F02ac5D6015521b4fC33eE45Dce87870489781b","timestamp":1650425785}]
    */
-  getStoremanStakeTotalIncentive(option: any): Promise<Array<object>>;
+  getStoremanStakeTotalIncentive(option: any): Promise<Array<any>>;
   /**
    * Get the delegator info on certain storeman.
    * @since 1.1.0
@@ -3301,13 +3301,13 @@ declare class IwanClient extends EventEmitter {
    * @param {any} option - Object:
    * <br>&nbsp;&nbsp;<code>address</code> - Optional, the array of delegator's address being queried.
    * <br>&nbsp;&nbsp;<code>wkAddr</code> - Optional, the array of storeman work address being queried.
-   * @returns {Promise<Array<object>>} - The total incentive info.
+   * @returns {Promise<Array<any>>} - The total incentive info.
    * @example
    * const ret = await sdk.getStoremanDelegatorInfo({wkAddr: ["0xef1Df88aB86Ce47baCB01ccB52818E87DdE08137"]});
    * console.log(ret);
    * // [{"from":"0x3Bc3048da78D305613482ef4199015d899bb4A01","wkAddr":"0xef1Df88aB86Ce47baCB01ccB52818E87DdE08137","deposit":"100000000000000000000","incentive":"2091483709531610240","groupId":"0x000000000000000000000000000000000000000000746573746e65745f303836","wkStake":{"deposit":"1889000000000000000000000","delegateDeposit":"136232000000000000000000","partnerDeposit":"10001000000000000000000"},"chain1":[2153201998,"WAN","Wanchain",5718350],"chain2":[2147483708,"ETH","Ethereum",60],"quited":true,"canDelegateOut":false,"canDelegateClaim":true}]
    */
-  getStoremanDelegatorInfo(option: any): Promise<Array<object>>;
+  getStoremanDelegatorInfo(option: any): Promise<Array<any>>;
   /**
    * Get the delegator total incentive info.
    * @since 1.1.0
@@ -3317,7 +3317,7 @@ declare class IwanClient extends EventEmitter {
    * <br>&nbsp;&nbsp;<code>wkAddr</code> - The string of storeman work address being queried.
    * <br>&nbsp;&nbsp;<code>fromBlock</code> - Optional, the number of the earliest block (latest may be given to mean the most recent, block). By default `0`.
    * <br>&nbsp;&nbsp;<code>toBlock</code> - Optional, the number of the latest block (latest may be given to mean the most recent, block). By default `latest`.
-   * @returns {Promise<Array<object>>} - The total incentive info.
+   * @returns {Promise<Array<any>>} - The total incentive info.
    * @example
    * const ret = await sdk.getStoremanDelegatorTotalIncentive({"wkAddr":"0x5c770cbf582d770b93ca90adad7e6bd33fabc44c"});
    * console.log(ret);
@@ -3331,7 +3331,7 @@ declare class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  getStoremanDelegatorTotalIncentive(option: any): Promise<Array<object>>;
+  getStoremanDelegatorTotalIncentive(option: any): Promise<Array<any>>;
   /**
    * Get the gpk slash info of certain storeman.
    * @since 1.1.0
@@ -3341,7 +3341,7 @@ declare class IwanClient extends EventEmitter {
    * <br>&nbsp;&nbsp;<code>groupId</code> - The string of storeman group ID being queried.
    * <br>&nbsp;&nbsp;<code>fromBlock</code> - Optional, the number of the earliest block (latest may be given to mean the most recent, block). By default 0.
    * <br>&nbsp;&nbsp;<code>toBlock</code> - Optional, the number of the latest block (latest may be given to mean the most recent, block). By default latest.
-   * @returns {Promise<Array<object>>} - The gpk slash info.
+   * @returns {Promise<Array<any>>} - The gpk slash info.
    * @example
    * const ret = await sdk.getStoremanGpkSlashInfo({"wkAddr":["0x2EBE3b8D6019AFb1ee724F56081D91b803e8553f"]});
    * console.log(ret);
@@ -3357,7 +3357,7 @@ declare class IwanClient extends EventEmitter {
    * //   }
    * // ]
    */
-  getStoremanGpkSlashInfo(option: any): Promise<Array<object>>;
+  getStoremanGpkSlashInfo(option: any): Promise<Array<any>>;
   /**
    * Get the sign slash info of certain storeman.
    * @since 1.1.0
@@ -3367,7 +3367,7 @@ declare class IwanClient extends EventEmitter {
    * <br>&nbsp;&nbsp;<code>groupId</code> - The string of storeman group ID being queried.
    * <br>&nbsp;&nbsp;<code>fromBlock</code> - Optional, the number of the earliest block (latest may be given to mean the most recent, block). By default 0.
    * <br>&nbsp;&nbsp;<code>toBlock</code> - Optional, the number of the latest block (latest may be given to mean the most recent, block). By default latest.
-   * @returns {Promise<Array<object>>} - The sign slash info.
+   * @returns {Promise<Array<any>>} - The sign slash info.
    * @example
    * const ret = await sdk.getStoremanSignSlashInfo({groupId:"0x000000000000000000000000000000000000000000746573746e65745f303032", "wkAddr":["0x5793e629c061e7fd642ab6a1b4d552cec0e2d606"]});
    * console.log(ret);
@@ -3383,7 +3383,7 @@ declare class IwanClient extends EventEmitter {
    * //   }
    * // ]
    */
-  getStoremanSignSlashInfo(option: any): Promise<Array<object>>;
+  getStoremanSignSlashInfo(option: any): Promise<Array<any>>;
   /**
    * Get the info of all register tokenPairs, like fromChainID, toChainID, tokenAddress.
    * @since 1.1.0
@@ -3392,7 +3392,7 @@ declare class IwanClient extends EventEmitter {
    * <br>&nbsp;&nbsp;<code>chainIds</code> - Optional, the array of two chain IDs of cross chain pair.
    * <br>&nbsp;&nbsp;<code>tags</code> - Optional, the array of tag of cross chain pair, should be in [<code>"desktop"</code>, <code>"bridge"</code>, <code>"bridgeBeta"</code>].
    * <br>&nbsp;&nbsp;<code>isAllTokenPairs</code> - Optional, the boolean flag of cross chain pair, using true to return all token pairs, include not yet online token pairs.
-   * @returns {Promise<Array<object>>} - The token pairs.
+   * @returns {Promise<Array<any>>} - The token pairs.
    * @example
    * const ret = await sdk.getSupportedChainInfo();
    * console.log(ret);
@@ -3422,14 +3422,14 @@ declare class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  getTokenPairs(option?: any): Promise<Array<object>>;
+  getTokenPairs(option?: any): Promise<Array<any>>;
   /**
    * Get the info of tokenPair of certain tokenPairId, like fromChainID, toChainID, tokenAddress.
    * @since 1.1.0
    * @group TokensV2
    * @param {string} id - The ID of tokenPair being queried.
    * @param {any} [option] - A reserved parameter.
-   * @returns {Promise<object>} - The token pair infomation.
+   * @returns {Promise<any>} - The token pair infomation.
    * @example
    * const ret = await sdk.getTokenPairInfo("1"));
    * console.log(ret);
@@ -3454,14 +3454,14 @@ declare class IwanClient extends EventEmitter {
    * //   toAccountType: 'Erc20'
    * // }
    */
-  getTokenPairInfo(id: string, option?: any): Promise<object>;
+  getTokenPairInfo(id: string, option?: any): Promise<any>;
   /**
    * Get the info of tokenPair Ancestor of certain tokenPairId, like symbol, decimals.
    * @since 1.1.0
    * @group TokensV2
    * @param {string} id - The ID of tokenPair being queried.
    * @param {any} [option] - A reserved parameter.
-   * @returns {Promise<object>} - The info of tokenPair Ancestor.
+   * @returns {Promise<any>} - The info of tokenPair Ancestor.
    * @example
    * const ret = await sdk.getTokenPairAncestorInfo("1"));
    * console.log(ret);
@@ -3473,7 +3473,7 @@ declare class IwanClient extends EventEmitter {
    * //   chainId: '2147483708'
    * // }
    */
-  getTokenPairAncestorInfo(id: string, option?: any): Promise<object>;
+  getTokenPairAncestorInfo(id: string, option?: any): Promise<any>;
   /**
    * Get all register tokenPairIDs.
    * @since 1.1.0
@@ -3512,7 +3512,7 @@ declare class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group CrossChainV2
    * @param {any} [option] - A reserved parameter.
-   * @returns {Promise<Array<object>>} - The supported chain info.
+   * @returns {Promise<Array<any>>} - The supported chain info.
    * @example
    * const ret = await sdk.getSupportedChainInfo();
    * console.log(ret);
@@ -3531,7 +3531,7 @@ declare class IwanClient extends EventEmitter {
    * //   ... ...
    * // ]
    */
-  getSupportedChainInfo(option?: any): Promise<Array<object>>;
+  getSupportedChainInfo(option?: any): Promise<Array<any>>;
   /**
    * Get incentive count of all store man during special epochs.
    * @since 1.1.0
@@ -3554,13 +3554,13 @@ declare class IwanClient extends EventEmitter {
    * @param {any} option - Object:
    * <br>&nbsp;&nbsp;<code>groupId</code> - The string of storeman group ID being queried.
    * <br>&nbsp;&nbsp;<code>index</code> - The number of index being queried.
-   * @returns {Promise<object>} - The selected storeman information.
+   * @returns {Promise<any>} - The selected storeman information.
    * @example
    * const ret = await sdk.getSelectedSmInfo({groupId: "0x000000000000000000000000000000000000000000000000006465765f323736", index: 0});
    * console.log(ret);
    * // {"wkAddr":"0x6f72Ca2ee51b765baEB744dc59734DE68134f7e9","PK":"0xcbadd190d961a8ec5b990cc1f2c1f6478cdc1f914aa3d85e86febc9ad8cd939183175e91a2b7fdf7db57ad6c877bf8d149f67a2a31638b35249d949c74157e85","enodeId":"0xcb715d7e634dc428beed2ecabf8bc9600cb32a7566866cfeb412b0caf80bfebd03712e75a788e6716f633eaa7defb3fa85079ca9b5573df45ede836c0b38ac8d"}
    */
-  getSelectedSmInfo(option: any): Promise<object>;
+  getSelectedSmInfo(option: any): Promise<any>;
   /**
    * Get all the selected storeman.
    * @since 1.1.0
@@ -3611,13 +3611,13 @@ declare class IwanClient extends EventEmitter {
    * @param {any} option - Object:
    * <br>&nbsp;&nbsp;<code>address</code> - Optional, the array of delegator's address being queried.
    * <br>&nbsp;&nbsp;<code>wkAddr</code> - The string of storeman work address being queried.
-   * @returns {Promise<object>} - The information delegated to certain storeman.
+   * @returns {Promise<any>} - The information delegated to certain storeman.
    * @example
    * const ret = await sdk.getSmDelegatorInfo({address:"0x713668d2a4dfb3bb8265054615cfe83217c07d8b",wkAddr:"0x5a82fbfc7d85fed5e30387f1b3df7cc24e282591"});
    * console.log(ret);
    * // {"sender":"0x713668D2a4dfB3Bb8265054615cFe83217c07d8b","deposit":"0","incentive":"0","quited":false}
    */
-  getSmDelegatorInfo(option: any): Promise<object>;
+  getSmDelegatorInfo(option: any): Promise<any>;
   /**
    * Get the reward ratio.
    * @since 1.1.0
@@ -3635,7 +3635,7 @@ declare class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group CrossChainV2
    * @param {string} chainType - The chain being queried, should be <code>"ETH"</code>,  <code>"WAN"</code>, and other EVM chains.
-   * @param {string} calls - The array of call data.
+   * @param {Array<any>} calls - The array of call data.
    * @param {any} [option] - A reserved parameter.
    * @returns {Promise<any>} - The code at a specific address.
    * @example
@@ -3643,13 +3643,13 @@ declare class IwanClient extends EventEmitter {
    * console.log(ret);
    * // {"results":{"blockNumber":{"_hex":"0x04c358f8"},"original":{"token_symbol":"USDT"},"transformed":{"token_symbol":"USDT"}},"keyToArgMap":{}}
    */
-  multiCall(chainType: string, calls: Array<object>, option?: any): Promise<any>;
+  multiCall(chainType: string, calls: Array<any>, option?: any): Promise<any>;
   /**
    * Get result of contract via multicall2.
    * @since 1.1.0
    * @group CrossChainV2
    * @param {string} chainType - The chain being queried, should be <code>"ETH"</code>,  <code>"WAN"</code>, and other EVM chains.
-   * @param {string} calls - The array of call data.
+   * @param {Array<any>} calls - The array of call data.
    * @param {any} [option] - A reserved parameter.
    * @returns {Promise<any>} - The code at a specific address.
    * @example
@@ -3665,7 +3665,7 @@ declare class IwanClient extends EventEmitter {
    * console.log(ret);
    * // [{"result":[{"token_symbol":"USDT"}],"status":[true]}]
    */
-  multiCall2(chainType: string, calls: Array<object>, option?: any): Promise<any>;
+  multiCall2(chainType: string, calls: Array<any>, option?: any): Promise<any>;
   /**
    * Get the code at a specific address.
    * @since 1.1.0
@@ -3686,7 +3686,7 @@ declare class IwanClient extends EventEmitter {
    * @group PrivateTrans
    * @param {string} chainType - The chain being queried. Currently supports <code>'BTC'</code>.
    * @param {string} feeType - The type of fee that you want to search, should be <code>"lock"</code> or <code>"release"</code>.
-   * @param {string} [option] - Optional:
+   * @param {any} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>target</code> - The numeric of confirmation target in blocks (1 - 1008), use 1 as default.
    * <br>&nbsp;&nbsp;<code>mode</code> - The string of fee estimate mode, use "CONSERVATIVE" as default.
    * <br>&nbsp;&nbsp;<code>feeRate</code> - The numeric of estimate fee rate.
@@ -3715,7 +3715,7 @@ declare class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group Blocks
    * @param {string} chainType - The chain being queried. Currently supports <code>"XRP"</code>.
-   * @param {string} option - Object:
+   * @param {any} option - Object:
    * <br>&nbsp;&nbsp;<code>ledgerHash</code> - Optional, the ledger hash you want to search.
    * <br>&nbsp;&nbsp;<code>ledgerVersion</code> - Optional, the ledger version you want to search.
    * <br>&nbsp;&nbsp;<code>version</code> - The result format version you want to search.
@@ -3747,7 +3747,7 @@ declare class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group Blocks
    * @param {string} chainType - The chain being queried. Currently supports <code>"XRP"</code>.
-   * @param {string} [option] - Optional:
+   * @param {any} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>version</code> - The result format version you want to search.
    * @returns {Promise<any>} - The server information.
    * @example
@@ -3829,7 +3829,7 @@ declare class IwanClient extends EventEmitter {
    * @deprecated Use {@link estimateCrossChainNetworkFee} instead.
    * @param {string} chainType - The chain being queried. Currently supports <code>"XRP"</code>.
    * @param {[number|string, number|string]} chainIds - Array of chain pair IDs about cross chain.
-   * @param {string} option - Object:
+   * @param {any} option - Object:
    * <br>&nbsp;&nbsp;<code>tokenPairID</code> - The ID of token pair you want to search.
    * <br>&nbsp;&nbsp;<code>version</code> - The result format version you want to search.
    * @returns {Promise<any>} - The cross chain fees.
@@ -3845,14 +3845,14 @@ declare class IwanClient extends EventEmitter {
    * @group CrossChain
    * @param {string} crossChain - The destination chainType that you want to search.
    * @param {string} symbol - The symbol that you want to search.
-   * @param {string} [option] - A reserved parameter.
-   * @returns {Promise<object>} - The minimum cross-chain amount.
+   * @param {any} [option] - A reserved parameter.
+   * @returns {Promise<any>} - The minimum cross-chain amount.
    * @example
    * const ret = await sdk.getMinCrossChainAmount("ETH", ["BTC"]);
    * console.log(ret);
    * // {"BTC":"100"}
    */
-  getMinCrossChainAmount(crossChain: string, symbol: string, option?: any): Promise<object>;
+  getMinCrossChainAmount(crossChain: string, symbol: string, option?: any): Promise<any>;
   /**
    * Get cross chain operation fee.
    * @since 1.1.0
@@ -3922,7 +3922,7 @@ declare class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>"ADA"</code>.
-   * @param {string} [option] - Optional:
+   * @param {any} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>epochID</code> - The ID of epoch you want to search.
    * @returns {Promise<any>} - The epoch parameters.
    * @example
@@ -3952,7 +3952,7 @@ declare class IwanClient extends EventEmitter {
    * @since 1.1.0
    * @group POS
    * @param {string} chainType - The chain being queried. Currently supports <code>"ADA"</code>.
-   * @param {string} [option] - Optional:
+   * @param {any} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>epochID</code> - The ID of epoch you want to search.
    * @returns {Promise<any>} - The epoch mofrl parameters.
    * @example
@@ -3979,7 +3979,7 @@ declare class IwanClient extends EventEmitter {
    * @group XRP
    * @param {string} chainType - The chain being queried. Currently supports <code>'XRP'</code>.
    * @param {string} address - The Address to check. This should be the issuing address.
-   * @param {string} [option] - Optional:
+   * @param {any} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>excludeAddresses</code> - Optional, the array of addresses to exclude from the balances issued.
    * @returns {Promise<any>} - The total balances issued by a given account.
    * @example
@@ -3994,30 +3994,30 @@ declare class IwanClient extends EventEmitter {
    * @group XRP
    * @param {string} chainType - The chain being queried. Currently supports <code>'XRP'</code>.
    * @param {string} address - A unique identifier for the account, most commonly the account's Address.
-   * @param {string} [option] - Optional:
+   * @param {any} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>peer</code> - Optional, the Address of a second account. If provided, show only lines of trust connecting the two accounts.
    * <br>&nbsp;&nbsp;<code>ledgerVersion</code> - Optional, the ledger version of the ledger to use.
-   * @returns {Promise<Array<object>>} - The infomation of account's trust lines.
+   * @returns {Promise<Array<any>>} - The infomation of account's trust lines.
    * @example
    * const ret = await sdk.getTrustLines("XRP", "rKFgsDG5mqxaMG45GR8J1CeESFCJ3xpqHS");
    * console.log(ret);
    * // [{"account":"rnqc3LJgN6E2Ern7G4tdciihoFtcatm7FX","balance":"1000000000","currency":"BAR","limit":"1000000000","limit_peer":"0","quality_in":0,"quality_out":0},{"account":"rh1FqPEZ4AvptV6vXr3WUgPHCgpkS2nb9G","balance":"0","currency":"FOO","limit":"100000","limit_peer":"0","no_ripple_peer":true,"quality_in":0,"quality_out":0}]
    */
-  getTrustLines(chainType: string, address: string, option?: any): Promise<Array<object>>;
+  getTrustLines(chainType: string, address: string, option?: any): Promise<Array<any>>;
   /**
    * Get cross chain reserved quota.
    * @since 1.1.0
    * @group Accounts
-   * @param {string} option - Object:
+   * @param {any} option - Object:
    * <br>&nbsp;&nbsp;<code>targetChainType</code> - The target chain being queried.
    * <br>&nbsp;&nbsp;<code>symbols</code> - The array of token symbol being queried.
-   * @returns {Promise<object>} - The cross chain reserved quota.
+   * @returns {Promise<any>} - The cross chain reserved quota.
    * @example
    * const ret = await sdk.getCrossChainReservedQuota({"targetChainType":"BTC", symbols:["BTC"]});
    * console.log(ret);
    * // {"BTC":"0.5"}
    */
-  getCrossChainReservedQuota(option: any): Promise<object>;
+  getCrossChainReservedQuota(option: any): Promise<any>;
   /**
    * Check if address list contrains hacker account.
    * @since 1.1.0
@@ -4037,46 +4037,46 @@ declare class IwanClient extends EventEmitter {
    * @group Contracts
    * @param {string} chainType - The chain being queried. Currently supports <code>'TRX'</code>.
    * @param {any} [option] - A reserved parameter.
-   * @returns {Promise<Array<object>>} - The parameters.
+   * @returns {Promise<Array<any>>} - The parameters.
    * @example
    * const ret = await sdk.getChainParameters("TRX");
    * console.log(ret);
    * // [{"key":"getMaintenanceTimeInterval","value":1800000},{"key":"getAccountUpgradeCost","value":9999000000},{"key":"getCreateAccountFee","value":100000},{"key":"getTransactionFee","value":1000},{"key":"getAssetIssueFee","value":1024000000},{"key":"getWitnessPayPerBlock","value":8000000},{"key":"getWitnessStandbyAllowance","value":100000000},{"key":"getCreateNewAccountFeeInSystemContract","value":1000000},{"key":"getCreateNewAccountBandwidthRate","value":1},{"key":"getAllowCreationOfContracts","value":1},{"key":"getRemoveThePowerOfTheGr","value":-1},{"key":"getEnergyFee","value":100},{"key":"getExchangeCreateFee","value":1024000000},{"key":"getMaxCpuTimeOfOneTx","value":160},{"key":"getAllowUpdateAccountName"},{"key":"getAllowSameTokenName","value":1},{"key":"getAllowDelegateResource","value":1},{"key":"getTotalEnergyLimit","value":180000000000},{"key":"getAllowTvmTransferTrc10","value":1},{"key":"getTotalEnergyCurrentLimit","value":180000000000},{"key":"getAllowMultiSign","value":1},{"key":"getAllowAdaptiveEnergy"},{"key":"getTotalEnergyTargetLimit","value":12500000},{"key":"getTotalEnergyAverageUsage"},{"key":"getUpdateAccountPermissionFee","value":100000000},{"key":"getMultiSignFee","value":1000000},{"key":"getAllowAccountStateRoot"},{"key":"getAllowProtoFilterNum"},{"key":"getAllowTvmConstantinople","value":1},{"key":"getAllowTvmSolidity059","value":1},{"key":"getAllowTvmIstanbul","value":1},{"key":"getAllowShieldedTRC20Transaction","value":1},{"key":"getForbidTransferToContract"},{"key":"getAdaptiveResourceLimitTargetRatio","value":10},{"key":"getAdaptiveResourceLimitMultiplier","value":1000},{"key":"getChangeDelegation","value":1},{"key":"getWitness127PayPerBlock","value":128000000},{"key":"getAllowMarketTransaction"},{"key":"getMarketSellFee"},{"key":"getMarketCancelFee"},{"key":"getAllowPBFT","value":1},{"key":"getAllowTransactionFeePool"},{"key":"getMaxFeeLimit","value":15000000000},{"key":"getAllowOptimizeBlackHole","value":1},{"key":"getAllowNewResourceModel"},{"key":"getAllowTvmFreeze","value":1},{"key":"getAllowTvmVote","value":1},{"key":"getAllowTvmLondon","value":1},{"key":"getAllowTvmCompatibleEvm"},{"key":"getAllowAccountAssetOptimization"},{"key":"getFreeNetLimit","value":600},{"key":"getTotalNetLimit","value":43200000000},{"key":"getAllowHigherLimitForMaxCpuTimeOfOneTx","value":1},{"key":"getAllowAssetOptimization","value":1},{"key":"getAllowNewReward","value":1},{"key":"getMemoFee","value":1000000},{"key":"getAllowDelegateOptimization","value":1},{"key":"getUnfreezeDelayDays","value":1},{"key":"getAllowOptimizedReturnValueOfChainId","value":1},{"key":"getAllowDynamicEnergy","value":1},{"key":"getDynamicEnergyThreshold","value":5000000000},{"key":"getDynamicEnergyIncreaseFactor","value":2000},{"key":"getDynamicEnergyMaxFactor","value":34000},{"key":"getAllowTvmShangHai","value":1},{"key":"getAllowCancelAllUnfreezeV2","value":1},{"key":"getMaxDelegateLockPeriod","value":144000},{"key":"getAllowOldRewardOpt","value":1},{"key":"getAllowEnergyAdjustment","value":1},{"key":"getMaxCreateAccountTxSize","value":1000},{"key":"getAllowStrictMath","value":1},{"key":"getConsensusLogicOptimization","value":1},{"key":"getAllowTvmCancun","value":1},{"key":"getAllowTvmBlob","value":1},{"key":"getAllowTvmSelfdestructRestriction","value":1},{"key":"getProposalExpireTime","value":600000}]
    */
-  getChainParameters(chainType: string, option?: any): Promise<Array<object>>;
+  getChainParameters(chainType: string, option?: any): Promise<Array<any>>;
   /**
    * Get cross chain quota hidden flags.
    * @since 1.1.0
    * @group CrossChainV2
    * @deprecated use {@link getChainQuotaHiddenFlagDirectionally} instead.
-   * @param {string} [option] - Optional:
+   * @param {any} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>chainIds</code> -  Array of chain IDs about the cross chain pair.
-   * @returns {Promise<object>} - The cross chain quota hidden flags.
+   * @returns {Promise<any>} - The cross chain quota hidden flags.
    * @example
    * const ret = await sdk.getChainQuotaHiddenFlags({chainIds:["1073741834", "2147484458", "2153201998"]});
    * console.log(ret);
    * // {}
    */
-  getChainQuotaHiddenFlags(option?: any): Promise<object>;
+  getChainQuotaHiddenFlags(option?: any): Promise<any>;
   /**
    * Get cross chain quota hidden flags.
    * @since 1.1.0
    * @group CrossChainV2
-   * @param {string} [option] - Optional:
+   * @param {any} [option] - Optional:
    * <br>&nbsp;&nbsp;<code>chainIds</code> -  Array of chain bip44 IDs about the cross chain pair.
-   * @returns {Promise<object>} - The cross chain quota hidden flags.
+   * @returns {Promise<any>} - The cross chain quota hidden flags.
    * @example
    * const ret = await sdk.getChainQuotaHiddenFlagDirectionally({chainIds:["1073741834", "2147484458", "2153201998"]});
    * console.log(ret);
    * // {"2153201998":{"hiddenSourceChainQuota":false,"hiddenTargetChainQuota":false}}
    */
-  getChainQuotaHiddenFlagDirectionally(option?: any): Promise<object>;
+  getChainQuotaHiddenFlagDirectionally(option?: any): Promise<any>;
   /**
    * Get discount info.
    * @since 1.1.0
    * @group CrossChainV2
-   * @param {string} [option] - A reserved parameter.
-   * @returns {Promise<Array<object>>} - The discount info.
+   * @param {any} [option] - A reserved parameter.
+   * @returns {Promise<Array<any>>} - The discount info.
    * @example
    * const ret = await sdk.getWanBridgeDiscounts();
    * console.log(ret);
@@ -4107,7 +4107,7 @@ declare class IwanClient extends EventEmitter {
    * //   }
    * // ]
    */
-  getWanBridgeDiscounts(option?: any): Promise<Array<object>>;
+  getWanBridgeDiscounts(option?: any): Promise<Array<any>>;
 }
 //#endregion
 export { IwanClientOptions, IwanClient as default };
