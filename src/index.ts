@@ -13,6 +13,8 @@
 // - CommonJS/ESM/TS/Browser ready (tsdown)
 
 import { EventEmitter } from 'eventemitter3';
+import hmacSHA256 from 'crypto-js/hmac-sha256';
+import Base64 from 'crypto-js/enc-base64';
 
 // ====================== CONFIG ======================
 const DEFAULT_CONFIG = {
@@ -82,35 +84,41 @@ class IWanError extends Error {
 }
 
 // ====================== CRYPTO (Node + Browser Safe) ======================
-async function generateSignature(secret: string, msg: string): Promise<string> {
-  const encoder = new TextEncoder();
-  if (typeof window !== 'undefined' && window.crypto?.subtle) {
-    // Browser Web Crypto
-    const webCrypto = window.crypto;
-    const key = await webCrypto.subtle.importKey(
-      'raw',
-      encoder.encode(secret),
-      { name: 'HMAC', hash: 'SHA-256' },
-      false,
-      ['sign']
-    );
-    const sig = await webCrypto.subtle.sign('HMAC', key, encoder.encode(msg));
-    const arr = Array.from(new Uint8Array(sig));
-    return btoa(String.fromCharCode(...arr));
-  }
-
-  // Node - dynamic import for ESM compatibility
-  // const { createHmac } = await import('crypto');
-  // return createHmac('sha256', secret).update(msg).digest('base64');
-
-  const { default:crypto } = await import('crypto-js');
-  return crypto.enc.Base64.stringify(crypto.HmacSHA256(msg, secret));
+function generateSignature(secret: string, msg: string): string {
+  return Base64.stringify(hmacSHA256(msg, secret));
 }
+// /**
+//  * @deprecated Using {@link generateSignature} instead.
+//  */
+// async function generateSignatureV1(secret: string, msg: string): Promise<string> {
+//   const encoder = new TextEncoder();
+//   if (typeof window !== 'undefined' && window.crypto?.subtle) {
+//     // Browser Web Crypto
+//     const webCrypto = window.crypto;
+//     const key = await webCrypto.subtle.importKey(
+//       'raw',
+//       encoder.encode(secret),
+//       { name: 'HMAC', hash: 'SHA-256' },
+//       false,
+//       ['sign']
+//     );
+//     const sig = await webCrypto.subtle.sign('HMAC', key, encoder.encode(msg));
+//     const arr = Array.from(new Uint8Array(sig));
+//     return btoa(String.fromCharCode(...arr));
+//   }
 
-async function signPayload(payload: RPCMessage, secretKey: string): Promise<RPCMessage> {
+//   // Node - dynamic import for ESM compatibility
+//   // const { createHmac } = await import('crypto');
+//   // return createHmac('sha256', secret).update(msg).digest('base64');
+
+//   const { default:crypto } = await import('crypto-js');
+//   return crypto.enc.Base64.stringify(crypto.HmacSHA256(msg, secret));
+// }
+
+function signPayload(payload: RPCMessage, secretKey: string): RPCMessage {
   const newPayload = { ...payload };
   newPayload.params.timestamp = Date.now();
-  newPayload.params.signature = await generateSignature(secretKey, JSON.stringify(newPayload));
+  newPayload.params.signature = generateSignature(secretKey, JSON.stringify(newPayload));
   return newPayload;
 }
 
@@ -358,7 +366,7 @@ export default class IwanClient extends EventEmitter {
       id: ++this.index,
     };
 
-    const signed = await signPayload(payload, this.secretKey);
+    const signed = signPayload(payload, this.secretKey);
 
     return new Promise((resolve, reject) => {
       const id = signed.id;
