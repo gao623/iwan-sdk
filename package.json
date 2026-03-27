@@ -31,10 +31,12 @@
     "build:docs:watchs": "typedoc --watch"
   },
   "dependencies": {
+    "crypto-js": "^4.2.0",
     "eventemitter3": "^5.0.1",
     "ws": "^8.19.0"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
     "@types/node": "^25.5.0",
     "@types/ws": "^8.18.1",
     "@vitest/browser-playwright": "^4.1.0",

@@ -100,8 +100,11 @@ async function generateSignature(secret: string, msg: string): Promise<string> {
   }
 
   // Node - dynamic import for ESM compatibility
-  const { createHmac } = await import('crypto');
-  return createHmac('sha256', secret).update(msg).digest('base64');
+  // const { createHmac } = await import('crypto');
+  // return createHmac('sha256', secret).update(msg).digest('base64');
+
+  const { default:crypto } = await import('crypto-js');
+  return crypto.enc.Base64.stringify(crypto.HmacSHA256(msg, secret));
 }
 
 async function signPayload(payload: RPCMessage, secretKey: string): Promise<RPCMessage> {
