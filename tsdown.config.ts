@@ -13,13 +13,15 @@ export default defineConfig({
   platform: 'neutral',
   outputOptions: {
     globals: {
-      eventemitter3: 'eventemitter3',
+      'eventemitter3': 'eventemitter3',
+      'crypto-js/hmac-sha256': 'crypto-js/hmac-sha256',
+      'crypto-js/enc-base64': 'crypto-js/enc-base64',
     },
   },
   deps: {
     // skipNodeModulesBundle: true,
-    neverBundle: ['crypto', 'ws'],
-    alwaysBundle: ['eventemitter3'],
-    onlyBundle: ['eventemitter3']
+    neverBundle: ['ws'],
+    alwaysBundle: ['eventemitter3', /^crypto-js(\/.*)?$/],
+    onlyBundle: ['eventemitter3', /^crypto-js(\/.*)?$/]
   }
 });
